@@ -7,7 +7,7 @@ export default function handler(req, res) {
 
   const intentName = req.body.queryResult?.intent?.displayName || "";
 
-alert(intentName);
+console.log("Received intent:", intentName);
   
   const answers = {
     "CI_SM_2_WaterNeeds_QA": "💧 $crop requires adequate water during $CropStage to maintain optimal growth. Drip and sprinkler irrigation are effective methods for $crop. Use soil moisture sensors to monitor water needs precisely. Regular monitoring prevents water stress, which negatively affects crop yield.",
@@ -48,4 +48,5 @@ alert(intentName);
     ]
   });
 }
+
 
