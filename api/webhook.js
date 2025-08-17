@@ -6,15 +6,6 @@ export default function handler(req, res) {
 
   const intentName = req.body.queryResult?.intent?.displayName || "";
   const userQuery = (req.body.queryResult?.queryText || "").toLowerCase();
-
-  if (intentName !== "CI_SM_2_WaterNeeds_QA") {
-    return res.status(200).json({
-      fulfillmentMessages: [
-        { text: { text: ["Sorry, I can't answer that intent yet."] } }
-      ]
-    });
-  }
-
   const answersMap = [
     {
       keywords: ["how much water does wheat need during flowering", "water need wheat flowering"],
@@ -122,17 +113,16 @@ export default function handler(req, res) {
   const defaultFallbackAnswer = "Sorry, I didn't understand your question. Please ask about crop water needs or related topics.";
 
   let answerText = defaultFallbackAnswer;
-
-  if (intentName === "CI_SM_2_WaterNeeds_QA") {
-    // Search answersMap for matching keywords in user query
+ if (intentName === "CI_SM_2_WaterNeeds_QA") {
     for (const item of answersMap) {
       if (item.keywords.some(kw => userQuery.includes(kw))) {
         answerText = item.answer;
         break;
       }
     }
-  } else if (intentName) {
-    // Optional: handle other intents or respond with generic message
+  } else if (intentName === "Default Fallback Intent") {
+    answerText = defaultFallbackAnswer;
+  } else {
     answerText = `Sorry, I can't answer the intent "${intentName}" yet.`;
   }
 
