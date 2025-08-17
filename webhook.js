@@ -4,8 +4,11 @@ export default function handler(req, res) {
     return;
   }
 
+
   const intentName = req.body.queryResult?.intent?.displayName || "";
 
+alert(intentName);
+  
   const answers = {
     "CI_SM_2_WaterNeeds_QA": "💧 $crop requires adequate water during $CropStage to maintain optimal growth. Drip and sprinkler irrigation are effective methods for $crop. Use soil moisture sensors to monitor water needs precisely. Regular monitoring prevents water stress, which negatively affects crop yield.",
     "CI_SM_2_WaterNeeds_BasmatiRice": "💧 For $cropVariety rice at transplanting, sufficient water is essential; methods like flood irrigation or alternate wetting and drying are commonly effective. Soil type and local $weatherCondition affect irrigation needs.",
@@ -45,3 +48,4 @@ export default function handler(req, res) {
     ]
   });
 }
+
