@@ -5,7 +5,8 @@ export default function handler(req, res) {
   }
 
   const intentName = req.body.queryResult?.intent?.displayName || "";
-  console.log("Received intent:", intentName);
+  console.log("DEBUG INTENT:", intentName);
+  
   const answers = {
     "How much water does wheat need during flowering?":
       "💧 $crop requires adequate water during $CropStage to maintain optimal growth. Drip and sprinkler irrigation are effective methods for $crop. Use soil moisture sensors to monitor water needs precisely. Regular monitoring prevents water stress, which negatively affects crop yield.",
