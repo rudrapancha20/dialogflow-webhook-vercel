@@ -123,7 +123,7 @@ export default function handler(req, res) {
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
-    answerText = `Sorry, I can't answer the intent "${intentName}" yet.`;
+    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
   }
 
   res.status(200).json({
