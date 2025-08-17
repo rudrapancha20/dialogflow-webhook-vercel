@@ -118,13 +118,22 @@ export default function handler(req, res) {
     }
   ];
 
-  let answerText = "Sorry, I don't have a specific answer for that.";
+ // Default fallback message for unmatched queries or intents
+  const defaultFallbackAnswer = "Sorry, I didn't understand your question. Please ask about crop water needs or related topics.";
 
-  for (const item of answersMap) {
-    if (item.keywords.some(kw => userQuery.includes(kw))) {
-      answerText = item.answer;
-      break;
+  let answerText = defaultFallbackAnswer;
+
+  if (intentName === "CI_SM_2_WaterNeeds_QA") {
+    // Search answersMap for matching keywords in user query
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
     }
+  } else if (intentName) {
+    // Optional: handle other intents or respond with generic message
+    answerText = `Sorry, I can't answer the intent "${intentName}" yet.`;
   }
 
   res.status(200).json({
