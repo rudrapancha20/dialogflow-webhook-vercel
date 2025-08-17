@@ -125,7 +125,97 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "Default Fallback Intent") {
+  } else if (intentName === "CI_SM_Best Planting Time_QA") {
+    const answersMap = [
+      {
+        keywords: ["best time to plant tomatoes", "when should i plant tomatoes", "tomato planting season"],
+        answer: "🌱 The best time to plant tomatoes is during early spring after the last frost, typically February to April. Tomatoes need warm soil and plenty of sunlight to thrive."
+      },
+      {
+        keywords: ["ideal planting period for carrots", "when to sow carrots", "carrot planting time"],
+        answer: "🌱 Carrots grow best when sown from late summer to early fall, around August to September, in cool and loose soil for straight roots."
+      },
+      {
+        keywords: ["when should i plant spinach", "spinach sowing season", "spinach planting time"],
+        answer: "🌱 Spinach does best in cool weather; plant seeds in early spring or autumn, from February to March or September to October."
+      },
+      {
+        keywords: ["planting time for potatoes", "when to plant potatoes", "potato sowing period"],
+        answer: "🌱 Potatoes are typically planted in early spring, around March to April, when the soil temperature reaches about 7°C."
+      },
+      {
+        keywords: ["when to sow onions", "onion planting season", "onion sowing time"],
+        answer: "🌱 Onions can be planted from January to March depending on the region. Early planting gives larger bulbs with good storage life."
+      },
+      {
+        keywords: ["best time to plant maize", "maize planting season", "when to sow maize"],
+        answer: "🌱 Plant maize in late spring after the soil warms, typically from April to June, to insure against frost damage."
+      },
+      {
+        keywords: ["when should i plant cucumbers", "cucumber planting time", "cucumber sowing season"],
+        answer: "🌱 Cucumbers prefer warm soil and air; plant them in late spring from April to June post-frost."
+      },
+      {
+        keywords: ["best season to plant beans", "bean planting time", "when to sow beans"],
+        answer: "🌱 Beans grow best when sown after danger of frost passes, usually late spring to early summer (May to July)."
+      },
+      {
+        keywords: ["best time to plant peas", "pea planting season", "when to sow peas"],
+        answer: "🌱 Peas prefer cool weather; sow seeds early spring or late summer for fall harvest, typically February to March."
+      },
+      {
+        keywords: ["best time to plant lettuce", "lettuce planting season", "when to sow lettuce"],
+        answer: "🌱 Lettuce should be sown in early spring or late summer for best results, avoiding hot weather."
+      },
+      {
+        keywords: ["when should i plant broccoli", "broccoli planting time", "broccoli sowing period"],
+        answer: "🌱 Broccoli can be planted in early spring or late summer for fall harvest, favoring cool weather."
+      },
+      {
+        keywords: ["best planting time for eggplants", "eggplant planting season", "when to plant brinjal"],
+        answer: "🌱 Eggplants prefer warm seasons; sow indoors in late winter and transplant after the last frost, around March-April."
+      },
+      {
+        keywords: ["when to sow radishes", "radish planting time", "radish sowing season"],
+        answer: "🌱 Radishes are quick-growing and can be sown in early spring or fall, ideally from March to April or September to October."
+      },
+      {
+        keywords: ["best time to plant chillies", "chilli planting season", "when to plant chillies"],
+        answer: "🌱 Chillies are warm-season crops; sow seeds indoors in late winter and transplant in spring after frost."
+      },
+      {
+        keywords: ["when to plant garlic", "garlic planting time", "garlic sowing season"],
+        answer: "🌱 Garlic is typically planted in late fall or early winter so bulbs mature in summer."
+      },
+      {
+        keywords: ["planting season for pumpkin", "when to plant pumpkin", "pumpkin sowing time"],
+        answer: "🌱 Pumpkins are sown in late spring to early summer, around May-June, with warm soil conditions."
+      },
+      {
+        keywords: ["when should i sow coriander", "coriander planting time", "coriander sowing season"],
+        answer: "🌱 Coriander grows best in cool weather; sow seeds in early spring or fall."
+      },
+      {
+        keywords: ["best time to plant fenugreek", "fenugreek planting season", "when to sow methi"],
+        answer: "🌱 Fenugreek is sown in early spring or fall, usually from February to April or September to November."
+      },
+      {
+        keywords: ["when to plant mustard greens", "mustard greens planting time", "mustard greens sowing season"],
+        answer: "🌱 Mustard greens grow best in cool weather; sow seeds early spring or late summer/fall."
+      },
+      {
+        keywords: ["best time to plant sweet corn", "sweet corn planting season", "when to sow sweet corn"],
+        answer: "🌱 Sweet corn is planted in late spring when the soil temperature is warm, usually May to June."
+      }
+    ];
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
+  }
+  else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
     answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
