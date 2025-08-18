@@ -428,8 +428,6 @@ export default function handler(req, res) {
         answer: "🌾 Preventive measures for controlling common crop pests include crop rotation to break pest life cycles, planting pest-resistant varieties, using physical barriers like row covers, employing biological controls such as beneficial insects, practicing good soil and water management, applying organic pesticides like neem oil, and timely monitoring and early intervention."
       }
     ];
-
-
     for (const item of answersMap) {
       if (item.keywords.some(kw => userQuery.includes(kw))) {
         answerText = item.answer;
@@ -445,7 +443,7 @@ export default function handler(req, res) {
           "fertilizer for tomato plants",
           "what fertilizer to use for tomatoes"
         ],
-        answer: "Use a balanced NPK fertilizer (e.g., 10-10-10) or a tomato-specific fertilizer rich in phosphorus for healthy fruit development."
+        answer: "🍅 Use a balanced NPK fertilizer (e.g., 10-10-10) or a tomato-specific fertilizer rich in phosphorus for healthy fruit development."
       },
       {
         keywords: [
@@ -454,7 +452,7 @@ export default function handler(req, res) {
           "fertilizer application frequency",
           "plant fertilizing schedule"
         ],
-        answer: "Generally, fertilize every 2-4 weeks during active growth; follow product instructions for dose and frequency."
+        answer: "🌱 Generally, fertilize every 2-4 weeks during active growth; follow product instructions for dose and frequency."
       },
       {
         keywords: [
@@ -463,7 +461,7 @@ export default function handler(req, res) {
           "should I use organic or chemical fertilizer",
           "advantages of organic fertilizer over chemical"
         ],
-        answer: "Both have pros and cons; organics improve soil health, chemicals offer fast results. Use based on your crop and soil condition."
+        answer: "🌿 Both have pros and cons; organics improve soil health, chemicals offer fast results. Use based on your crop and soil condition."
       },
       {
         keywords: [
@@ -472,7 +470,7 @@ export default function handler(req, res) {
           "fertilizer dosage per plant",
           "fertilizer amount guidelines"
         ],
-        answer: "Test your soil first; if unsure, use 2-3lb of NPK per 100sqft as a general guideline."
+        answer: "⚖️ Test your soil first; if unsure, use 2-3lb of NPK per 100sqft as a general guideline."
       },
       {
         keywords: [
@@ -481,7 +479,7 @@ export default function handler(req, res) {
           "fertilizer side effects on plants",
           "fertilizer dangers"
         ],
-        answer: "Too much fertilizer can cause root burn, dehydration, and even kill plants. Always follow recommended rates."
+        answer: "⚠️ Too much fertilizer can cause root burn, dehydration, and even kill plants. Always follow recommended rates."
       },
       {
         keywords: [
@@ -490,7 +488,7 @@ export default function handler(req, res) {
           "when should I fertilize plants",
           "fertilizing timing"
         ],
-        answer: "Apply fertilizer just before active growth or flowering. For most crops, before monsoon or new growth is ideal."
+        answer: "⏰ Apply fertilizer just before active growth or flowering. For most crops, before monsoon or new growth is ideal."
       },
       {
         keywords: [
@@ -499,7 +497,7 @@ export default function handler(req, res) {
           "meaning of NPK fertilizer",
           "NPK definition"
         ],
-        answer: "NPK stands for Nitrogen (N), Phosphorus (P), and Potassium (K) – essential nutrients for plant growth."
+        answer: "🔤 NPK stands for Nitrogen (N), Phosphorus (P), and Potassium (K) – essential nutrients for plant growth."
       },
       {
         keywords: [
@@ -508,7 +506,7 @@ export default function handler(req, res) {
           "why is fertilizer ineffective",
           "fertilizer results not visible"
         ],
-        answer: "Check for correct NPK balance, soil pH, watering, and ensure you are not over- or under-applying."
+        answer: "🔍 Check for correct NPK balance, soil pH, watering, and ensure you are not over- or under-applying."
       },
       {
         keywords: [
@@ -517,7 +515,7 @@ export default function handler(req, res) {
           "are chemical fertilizers harmful",
           "using chemical fertilizers risks"
         ],
-        answer: "Chemical fertilizers are generally safe if used correctly; overuse can pollute soil and water."
+        answer: "✅ Chemical fertilizers are generally safe if used correctly; overuse can pollute soil and water."
       },
       {
         keywords: [
@@ -526,7 +524,7 @@ export default function handler(req, res) {
           "rice fertilizer recommendation",
           "fertilizer advice for rice"
         ],
-        answer: "Use NPK and apply 10-12kg/ha zinc sulfate before planting to correct deficiencies."
+        answer: "🌾 Use NPK and apply 10-12kg/ha zinc sulfate before planting to correct deficiencies."
       },
       {
         keywords: [
@@ -535,7 +533,7 @@ export default function handler(req, res) {
           "benefits of animal manure",
           "can manure replace chemical fertilizer"
         ],
-        answer: "Yes, composted animal manure enriches soil and provides nutrients naturally."
+        answer: "🐄 Yes, composted animal manure enriches soil and provides nutrients naturally."
       },
       {
         keywords: [
@@ -544,7 +542,7 @@ export default function handler(req, res) {
           "fertilizer application methods",
           "proper way to use fertilizer"
         ],
-        answer: "Apply fertilizer evenly, avoid direct contact with plants, and water well after application."
+        answer: "🧴 Apply fertilizer evenly, avoid direct contact with plants, and water well after application."
       },
       {
         keywords: [
@@ -553,7 +551,7 @@ export default function handler(req, res) {
           "fertigation definition",
           "fertilizer application via irrigation"
         ],
-        answer: "Fertigation is the application of fertilizer via the irrigation system for efficient nutrient delivery."
+        answer: "💧 Fertigation is the application of fertilizer via the irrigation system for efficient nutrient delivery."
       },
       {
         keywords: [
@@ -562,7 +560,7 @@ export default function handler(req, res) {
           "dangers of too much fertilizer",
           "overuse of fertilizer risks"
         ],
-        answer: "Over-fertilizing can lead to root damage, soil hardening, and water pollution."
+        answer: "❌ Over-fertilizing can lead to root damage, soil hardening, and water pollution."
       },
       {
         keywords: [
@@ -571,7 +569,7 @@ export default function handler(req, res) {
           "which fertilizer helps flowers",
           "fertilizer for flower growth"
         ],
-        answer: "Phosphorus-rich fertilizers stimulate flowering and fruit production."
+        answer: "🌸 Phosphorus-rich fertilizers stimulate flowering and fruit production."
       },
       {
         keywords: [
@@ -580,7 +578,7 @@ export default function handler(req, res) {
           "can I combine different fertilizers",
           "fertilizer mixing advice"
         ],
-        answer: "You can mix fertilizers, but ensure compatibility. Always follow recommended rates to avoid toxicity."
+        answer: "🔄 You can mix fertilizers, but ensure compatibility. Always follow recommended rates to avoid toxicity."
       },
       {
         keywords: [
@@ -589,7 +587,7 @@ export default function handler(req, res) {
           "green manure explanation",
           "green manure use in farming"
         ],
-        answer: "Green manure is plants grown and incorporated into soil to add organic matter and nutrients, improving fertility."
+        answer: "🌿 Green manure is plants grown and incorporated into soil to add organic matter and nutrients, improving fertility."
       },
       {
         keywords: [
@@ -598,7 +596,7 @@ export default function handler(req, res) {
           "does fertilizer cause water pollution",
           "fertilizer effects on water"
         ],
-        answer: "Overuse of chemical fertilizers can contaminate groundwater. Use as per guidance and test soil regularly."
+        answer: "💧 Overuse of chemical fertilizers can contaminate groundwater. Use as per guidance and test soil regularly."
       },
       {
         keywords: [
@@ -607,7 +605,7 @@ export default function handler(req, res) {
           "fertilizing fruit trees",
           "what fertilizer to use on fruit trees"
         ],
-        answer: "Use a balanced fertilizer and apply before flowering and fruit set for best results."
+        answer: "🌳 Use a balanced fertilizer and apply before flowering and fruit set for best results."
       },
       {
         keywords: [
@@ -616,9 +614,10 @@ export default function handler(req, res) {
           "fertilizer causing leaf yellowing",
           "plants have yellow leaves because of fertilizer"
         ],
-        answer: "Yellowing can indicate nitrogen deficiency; use a fertilizer with sufficient nitrogen."
+        answer: "🍂 Yellowing can indicate nitrogen deficiency; use a fertilizer with sufficient nitrogen."
       }
     ];
+
     for (const item of answersMap) {
       if (item.keywords.some(kw => userQuery.includes(kw))) {
         answerText = item.answer;
