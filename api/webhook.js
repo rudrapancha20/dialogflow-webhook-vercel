@@ -416,11 +416,19 @@ export default function handler(req, res) {
           "how to control pests in crops",
           "pest prevention in farming",
           "common pest prevention methods",
-          "methods to prevent crop pests"
+          "methods to prevent crop pests",
+          "what preventive measures can control common crop pests",
+          "ways to prevent crop pests",
+          "tips for controlling crop pests",
+          "how to keep pests away from crops",
+          "best strategies for crop pest prevention",
+          "pest control measures for crops",
+          "how can I prevent pests in crops"
         ],
-        answer: "🌾 Preventive measures for controlling common crop pests include crop rotation to break pest life cycles, planting pest-resistant varieties, using physical barriers like row covers, employing biological controls such as beneficial insects (ladybugs, lacewings), practicing good soil and water management, applying organic pesticides like neem oil, and timely monitoring and early detection for quick intervention."
+        answer: "🌾 Preventive measures for controlling common crop pests include crop rotation to break pest life cycles, planting pest-resistant varieties, using physical barriers like row covers, employing biological controls such as beneficial insects, practicing good soil and water management, applying organic pesticides like neem oil, and timely monitoring and early intervention."
       }
     ];
+
 
     for (const item of answersMap) {
       if (item.keywords.some(kw => userQuery.includes(kw))) {
