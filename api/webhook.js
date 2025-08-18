@@ -214,83 +214,207 @@ export default function handler(req, res) {
   } else if (intentName === "CI_SM_3_Diseases and pests_QA") {
     const answersMap = [
       {
-        keywords: ["symptoms of leaf spot disease", "identify leaf spot", "leaf spot on plants"],
+        keywords: [
+          "symptoms of leaf spot disease",
+          "identify leaf spot",
+          "leaf spot on plants",
+          "signs of leaf spot",
+          "leaf spot symptoms",
+          "how to detect leaf spot",
+          "leaf spot disease control"
+        ],
         answer: "🍂 Leaf spot disease causes discolored spots with yellow halos on leaves, leading to defoliation. Common in tomatoes and peppers. Control by crop rotation and fungicides."
       },
       {
-        keywords: ["control powdery mildew grapes", "manage powdery mildew", "fungus on grape leaves"],
+        keywords: [
+          "control powdery mildew grapes",
+          "manage powdery mildew",
+          "fungus on grape leaves",
+          "powdery mildew on grapes",
+          "how to prevent powdery mildew grapes",
+          "treat powdery mildew on grapes"
+        ],
         answer: "🍇 Powdery mildew appears as white powdery coating on grape leaves. Improve air circulation and use fungicides preventively."
       },
       {
-        keywords: ["mosaic virus symptoms", "prevent mosaic virus", "virus on cucurbits"],
+        keywords: [
+          "mosaic virus symptoms",
+          "prevent mosaic virus",
+          "virus on cucurbits",
+          "what is mosaic virus",
+          "mosaic virus definition",
+          "how to control mosaic virus"
+        ],
         answer: "🌿 Mosaic virus causes mottled and distorted leaves, stunting growth. Use resistant varieties and control aphid vectors."
       },
       {
-        keywords: ["causes of blight on potatoes", "potato blight symptoms", "prevent potato blight"],
+        keywords: [
+          "causes of blight on potatoes",
+          "potato blight symptoms",
+          "prevent potato blight",
+          "what causes blight disease potatoes",
+          "manage blight disease in potatoes"
+        ],
         answer: "🥔 Blight causes dark lesions and wilting in potatoes. Use resistant varieties and fungicides."
       },
       {
-        keywords: ["identify bacterial wilt tomatoes", "bacterial wilt symptoms", "control bacterial wilt"],
+        keywords: [
+          "identify bacterial wilt tomatoes",
+          "bacterial wilt symptoms",
+          "control bacterial wilt",
+          "how to detect bacterial wilt in tomatoes",
+          "bacterial wilt disease tomatoes"
+        ],
         answer: "🍅 Bacterial wilt causes sudden tomato wilting and yellowing. Use clean seeds and crop rotation."
       },
       {
-        keywords: ["aphid damage", "effects of aphids", "control aphids"],
+        keywords: [
+          "aphid damage",
+          "effects of aphids",
+          "control aphids",
+          "aphid damage to crops",
+          "how to manage aphids"
+        ],
         answer: "🐛 Aphids suck sap causing leaf distortion and transmit viruses. Control with insecticidal soaps and ladybugs."
       },
       {
-        keywords: ["manage fruit flies citrus", "fruit fly damage", "fruit flies in orchards"],
+        keywords: [
+          "manage fruit flies citrus",
+          "fruit fly damage",
+          "fruit flies in orchards",
+          "how to control fruit flies in citrus",
+          "prevent fruit flies citrus"
+        ],
         answer: "🍊 Fruit flies lay eggs in fruit causing maggots. Use pheromone traps and insecticides."
       },
       {
-        keywords: ["signs of mite infestation", "detect mites", "control mites"],
+        keywords: [
+          "signs of mite infestation",
+          "detect mites",
+          "control mites",
+          "how to identify mite infestation",
+          "mites damage on plants"
+        ],
         answer: "🕷️ Mites cause stippling and webbing on leaves. Use miticides and encourage predatory mites."
       },
       {
-        keywords: ["control stem borers maize", "maize stem borer", "damage by stem borers"],
+        keywords: [
+          "control stem borers maize",
+          "maize stem borer",
+          "damage by stem borers",
+          "prevent stem borer damage maize",
+          "manage stem borers in maize"
+        ],
         answer: "🌽 Stem borers bore into stalks weakening maize. Use resistant hybrids and insecticides."
       },
       {
-        keywords: ["root rot in beans", "bean root disease", "control root rot"],
+        keywords: [
+          "root rot in beans",
+          "bean root disease",
+          "control root rot",
+          "prevent root rot beans",
+          "symptoms of root rot in beans"
+        ],
         answer: "🌱 Root rot causes wilting and decayed roots. Improve drainage and use fungicides."
       },
       {
-        keywords: ["white mold beans", "identify white mold", "white mold control"],
+        keywords: [
+          "white mold beans",
+          "identify white mold",
+          "white mold control",
+          "manage white mold in beans",
+          "symptoms of white mold beans"
+        ],
         answer: "🏵️ White mold causes cottony growth on stems and pods. Use crop rotation and fungicides."
       },
       {
-        keywords: ["scale insects on fruit trees", "damage by scale insects", "control scales"],
+        keywords: [
+          "scale insects on fruit trees",
+          "damage by scale insects",
+          "control scales",
+          "scale insect infestation fruit trees",
+          "manage scale insects"
+        ],
         answer: "🐞 Scale insects suck sap causing yellowing and leaf drop. Use horticultural oils and insecticides."
       },
       {
-        keywords: ["nematode damage crops", "detect nematodes", "control nematodes"],
+        keywords: [
+          "nematode damage crops",
+          "detect nematodes",
+          "control nematodes",
+          "how to identify nematodes",
+          "manage crop nematodes"
+        ],
         answer: "🥕 Nematodes cause root galls and stunting. Use nematicides and resistant varieties."
       },
       {
-        keywords: ["rust disease on wheat", "wheat rust symptoms", "control rust disease"],
+        keywords: [
+          "rust disease on wheat",
+          "wheat rust symptoms",
+          "control rust disease",
+          "how to prevent rust on wheat",
+          "manage rust disease wheat"
+        ],
         answer: "🌾 Rust causes reddish pustules on wheat leaves. Use resistant varieties and fungicides."
       },
       {
-        keywords: ["bacterial canker stone fruits", "symptoms bacterial canker", "control bacterial canker"],
+        keywords: [
+          "bacterial canker stone fruits",
+          "symptoms bacterial canker",
+          "control bacterial canker",
+          "manage bacterial canker stone fruits",
+          "prevent bacterial canker"
+        ],
         answer: "🍒 Bacterial canker causes dead bark areas. Prune infected branches and apply copper sprays."
       },
       {
-        keywords: ["thrips damage crops", "control thrips", "thrips infestation"],
+        keywords: [
+          "thrips damage crops",
+          "control thrips",
+          "thrips infestation",
+          "manage thrips in crops",
+          "effects of thrips"
+        ],
         answer: "🐜 Thrips cause distorted growth and silver streaks. Use insecticides and encourage predators."
       },
       {
-        keywords: ["leaf miner damage", "control leaf miners", "leaf miner symptoms"],
+        keywords: [
+          "leaf miner damage",
+          "control leaf miners",
+          "leaf miner symptoms",
+          "manage leaf miner infestation",
+          "signs of leaf miner"
+        ],
         answer: "🐛 Leaf miners tunnel inside leaves creating trails. Use systemic insecticides and remove affected leaves."
       },
       {
-        keywords: ["black root rot symptoms", "control black root rot", "root rot disease"],
+        keywords: [
+          "black root rot symptoms",
+          "control black root rot",
+          "root rot disease",
+          "manage black root rot",
+          "signs of black root rot"
+        ],
         answer: "🌱 Black root rot causes blackened roots and stunted growth. Improve drainage and use fungicides."
       },
       {
-        keywords: ["powdery mildew cucumber", "fungicide for powdery mildew", "identify powdery mildew"],
+        keywords: [
+          "powdery mildew cucumber",
+          "fungicide for powdery mildew",
+          "identify powdery mildew",
+          "control powdery mildew on cucumber",
+          "cucumber powdery mildew symptoms"
+        ],
         answer: "🥒 White powdery spots on leaves indicate powdery mildew. Use sulfur sprays and remove infected parts."
       },
       {
-        keywords: ["prevent crop pests", "crop pest control methods", "manage crop pests"],
+        keywords: [
+          "prevent crop pests",
+          "crop pest control methods",
+          "manage crop pests",
+          "how to control pests in crops",
+          "pest prevention in farming"
+        ],
         answer: "🌾 Use crop rotation, resistant varieties, biological controls, and timely insecticide applications to control pests."
       }
     ];
