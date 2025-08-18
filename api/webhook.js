@@ -624,6 +624,195 @@ export default function handler(req, res) {
         break;
       }
     }
+  } else if (intentName === "CI_SM_5_Harvesting guidance_QA") {
+    const answersMap = [
+      {
+        keywords: [
+          "when is the right time to harvest wheat",
+          "how to know when wheat is ready for harvest",
+          "best harvest time for wheat",
+          "wheat harvesting maturity signs"
+        ],
+        answer: "🌾 The right time to harvest wheat is when the grains turn hard and golden-yellow, moisture content is about 13-15%, and the plants begin to dry. Signs include drying leaves, hard grains that dent with a fingernail, and bent stalks."
+      },
+      {
+        keywords: [
+          "how do i harvest rice properly",
+          "best method to harvest rice",
+          "when to cut rice crop",
+          "rice harvesting tips"
+        ],
+        answer: "🌾 Rice should be harvested when grains are mature but not overripe—typically when 80-85% of grains have turned golden yellow and moisture content is around 20-24%. Cut the crop just above the ground using a sickle or mechanical harvester, then thresh and dry promptly."
+      },
+      {
+        keywords: [
+          "what tools are needed for harvesting maize",
+          "best tools for harvesting corn",
+          "maize harvesting equipment",
+          "tools for maize harvest"
+        ],
+        answer: "🌽 Maize harvesting uses tools like sharp sickles for manual cutting, machetes, or mechanical harvesters such as combine harvesters or corn pickers. For small scale, sickle and knives are sufficient."
+      },
+      {
+        keywords: [
+          "how to store harvested potatoes",
+          "potato post-harvest storage best practices",
+          "proper storage methods for potatoes",
+          "potato storage tips"
+        ],
+        answer: "🥔 Store harvested potatoes in a cool, dark, and well-ventilated place at 4-10°C with 85-90% humidity. Cure them for 1-2 weeks before storage to heal wounds and reduce rot."
+      },
+      {
+        keywords: [
+          "when to harvest tomatoes for best quality",
+          "tomato harvest time",
+          "how to pick ripe tomatoes",
+          "best harvesting stage for tomatoes"
+        ],
+        answer: "🍅 Harvest tomatoes at the mature green to fully ripe stage depending on use. Look for color change from green to red (or the mature color for each variety) and slight softness for best flavor and quality."
+      },
+      {
+        keywords: [
+          "how to harvest fruits without damage",
+          "best harvesting practices for fruits",
+          "how to pick fruits gently",
+          "fruit harvesting techniques"
+        ],
+        answer: "🍎 Harvest fruits by hand using gentle twisting or cutting to avoid bruising. Use clean, sharp tools and handle fruits carefully during picking and transport to prevent damage."
+      },
+      {
+        keywords: [
+          "what is the ideal moisture content for harvesting grains",
+          "grain moisture for harvest",
+          "best moisture level to harvest crops",
+          "crop moisture content for harvest"
+        ],
+        answer: "🌾 Ideal grain moisture content for harvest typically ranges between 13-15% to minimize losses and ensure safe storage. Harvesting above this moisture may cause spoilage; below can cause kernel damage."
+      },
+      {
+        keywords: [
+          "how to identify mature onions for harvest",
+          "when should onions be harvested",
+          "onion maturity signs",
+          "onion harvesting time"
+        ],
+        answer: "🧅 Harvest onions when 50-70% of the tops have fallen over and turned brown. Bulbs should be firm with dry papery skins showing, indicating maturity."
+      },
+      {
+        keywords: [
+          "what precautions to take during harvesting wheat",
+          "wheat harvest precautions",
+          "how to reduce loss in wheat harvesting",
+          "wheat harvesting tips"
+        ],
+        answer: "🌾 Take precautions like timely harvesting at correct moisture, using sharp tools or properly calibrated machines, careful handling to minimize grain shatter, and prompt drying to reduce losses."
+      },
+      {
+        keywords: [
+          "how to dry harvested grains effectively",
+          "best grain drying methods",
+          "how to dry grains post-harvest",
+          "grain drying tips"
+        ],
+        answer: "🌾 Dry harvested grains quickly using sun drying on clean surfaces or mechanical dryers to reduce moisture to safe storage level (~13%). Ensure grains are evenly spread and turned regularly for uniform drying."
+      },
+      {
+        keywords: [
+          "when to harvest sugarcane",
+          "best harvest time for sugarcane",
+          "sugarcane maturity signs",
+          "sugarcane harvesting period"
+        ],
+        answer: "🍬 Harvest sugarcane when it reaches 12-16 months old, with hard stalks and high sugar content. Leaves may turn yellowish, and the stems become less green and fibrous."
+      },
+      {
+        keywords: [
+          "how to prevent damage during grape harvesting",
+          "best practices for harvesting grapes",
+          "how to pick grapes carefully",
+          "grape harvesting tips"
+        ],
+        answer: "🍇 Harvest grapes by cutting clusters with sharp scissors or knives, handling gently to avoid bruising, and collecting in shallow containers to prevent crushing."
+      },
+      {
+        keywords: [
+          "what is the right way to harvest carrots",
+          "carrot harvesting method",
+          "when to dig up carrots",
+          "harvesting carrots tips"
+        ],
+        answer: "🥕 Harvest carrots when roots reach desired size, usually 60-80 days after planting. Loosen soil carefully around roots before pulling to avoid breakage."
+      },
+      {
+        keywords: [
+          "how to harvest leafy vegetables",
+          "best method to harvest leafy greens",
+          "when to cut spinach or lettuce",
+          "leafy vegetable harvesting tips"
+        ],
+        answer: "🥬 Harvest leafy vegetables by cutting leaves or entire plants just above the soil surface when mature but before flowering, typically early morning for best freshness."
+      },
+      {
+        keywords: [
+          "how to store harvested fruits for longer shelf life",
+          "fruit post-harvest storage tips",
+          "best way to store fruits",
+          "fruit storage guidelines"
+        ],
+        answer: "🍏 Store fruits in cool, humid, and well-ventilated conditions away from direct sunlight. Use refrigeration for perishable varieties and separate ethylene-producing fruits from sensitive ones."
+      },
+      {
+        keywords: [
+          "when to harvest chilli peppers",
+          "chilli harvesting time",
+          "how to pick mature chillies",
+          "best stage to harvest chillies"
+        ],
+        answer: "🌶️ Harvest chillies when they have reached full color (red, yellow, or green depending on variety) and size. Use scissors or gently snap off peppers to avoid plant damage."
+      },
+      {
+        keywords: [
+          "how to harvest tea leaves",
+          "tea leaf plucking method",
+          "when to pick tea leaves",
+          "tea harvesting tips"
+        ],
+        answer: "🍃 Pluck tea leaves by hand, taking the top two leaves and a bud during flush periods. Harvest regularly every 7-15 days for quality leaves."
+      },
+      {
+        keywords: [
+          "what are signs of maturity in coffee beans",
+          "when to harvest coffee",
+          "coffee berry maturity indicators",
+          "coffee harvesting tips"
+        ],
+        answer: "☕ Harvest coffee cherries when they are bright red or yellow (variety dependent) and firm to the touch. Immature cherries are green and underripe."
+      },
+      {
+        keywords: [
+          "how to reduce losses during harvesting",
+          "minimize harvest loss techniques",
+          "harvest loss reduction methods",
+          "harvesting best practices"
+        ],
+        answer: "🌾 Reduce harvest losses by harvesting at the right maturity and moisture, using well-maintained tools/machinery, careful handling, prompt threshing, and proper drying and storage."
+      },
+      {
+        keywords: [
+          "how to harvest cucumbers properly",
+          "cucumber harvesting tips",
+          "when to pick cucumbers",
+          "best method to harvest cucumbers"
+        ],
+        answer: "🥒 Harvest cucumbers when firm, green, and of desired size before seeds enlarge. Use sharp knives or scissors to cut fruit stems carefully without damaging the vine."
+      }
+    ];
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
   }
   else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
