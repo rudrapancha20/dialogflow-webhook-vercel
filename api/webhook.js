@@ -813,7 +813,98 @@ export default function handler(req, res) {
         break;
       }
     }
+  } else if (intentName === "CL_SM_1_Land Preparation_QA") {
+    const answersMap = [
+      {
+        keywords: ["what is land preparation", "define land preparation"],
+        answer: "🌱 Land preparation is the process of preparing the soil for sowing seeds. It involves ploughing, harrowing, leveling, and adding organic matter to make the soil fertile and suitable for crop growth."
+      },
+      {
+        keywords: ["why is land preparation important", "importance of land preparation"],
+        answer: "✅ Land preparation is important because it improves soil structure, removes weeds, increases water infiltration, enhances nutrient availability, and creates a good seedbed for better crop establishment."
+      },
+      {
+        keywords: ["steps in land preparation", "land preparation steps"],
+        answer: "🛠️ The main steps in land preparation are: 1) Clearing the land, 2) Ploughing, 3) Harrowing, 4) Leveling, 5) Adding manure/fertilizer, 6) Irrigation if needed."
+      },
+      {
+        keywords: ["first step of land preparation", "initial step in land preparation"],
+        answer: "🔹 The first step of land preparation is clearing the field of unwanted plants, stubble, rocks, and debris."
+      },
+      {
+        keywords: ["why do we plough the land", "purpose of ploughing"],
+        answer: "🚜 Ploughing loosens and aerates the soil, helps mix organic matter, improves drainage, and exposes pests to sunlight, reducing their population."
+      },
+      {
+        keywords: ["what is harrowing", "harrowing in land preparation"],
+        answer: "⚒️ Harrowing is the process of breaking large soil clods after ploughing to create a fine seedbed. It also helps in weed control."
+      },
+      {
+        keywords: ["what is land leveling", "define land leveling"],
+        answer: "📏 Land leveling is the process of making the soil surface even. It helps in uniform irrigation, prevents waterlogging, and ensures proper crop growth."
+      },
+      {
+        keywords: ["how do farmers prepare land for paddy", "paddy land preparation"],
+        answer: "🌾 For paddy, farmers puddle the soil (plough in standing water), level the field, and maintain waterlogged conditions to control weeds and support rice growth."
+      },
+      {
+        keywords: ["how do farmers prepare land for wheat", "wheat land preparation"],
+        answer: "🌿 For wheat, farmers plough the soil deeply, harrow to make a fine seedbed, add organic matter or fertilizers, and ensure good drainage."
+      },
+      {
+        keywords: ["tools used for land preparation", "equipment for land preparation"],
+        answer: "🧰 Tools used in land preparation include ploughs, harrows, rotavators, tractors, hoes, spades, and leveling boards."
+      },
+      {
+        keywords: ["role of organic matter in soil preparation", "organic matter in land preparation"],
+        answer: "🍂 Organic matter improves soil fertility, enhances water retention, increases microbial activity, and provides essential nutrients for crops."
+      },
+      {
+        keywords: ["weed control in land preparation", "how to control weeds during land preparation"],
+        answer: "🌿 Weeds are controlled by ploughing, harrowing, hand weeding, mulching, and using eco-friendly herbicides before sowing."
+      },
+      {
+        keywords: ["modern methods of land preparation", "advanced land preparation techniques"],
+        answer: "⚙️ Modern methods include laser land leveling, mechanized ploughing with tractors, rotavators, zero tillage, and the use of precision farming equipment."
+      },
+      {
+        keywords: ["how does land preparation affect yield", "effect of land preparation on crop yield"],
+        answer: "📈 Proper land preparation increases crop yield by ensuring good seed-soil contact, better nutrient absorption, effective weed control, and uniform crop establishment."
+      },
+      {
+        keywords: ["soil types and land preparation", "how soil type affects land preparation"],
+        answer: "🧪 Soil type affects preparation methods: sandy soils need organic matter for water retention, clay soils need deep ploughing and leveling, and loamy soils are easier to prepare."
+      },
+      {
+        keywords: ["what is deep ploughing", "importance of deep ploughing"],
+        answer: "🔎 Deep ploughing means turning the soil to a depth of 20–30 cm. It improves aeration, destroys weeds, exposes pests, and allows deep root penetration."
+      },
+      {
+        keywords: ["when should land preparation be done", "best time for land preparation"],
+        answer: "🕒 Land preparation should be done before the sowing season, usually after the previous crop is harvested and when the soil has the right moisture."
+      },
+      {
+        keywords: ["irrigation in land preparation", "relation of irrigation and land preparation"],
+        answer: "💧 Irrigation is sometimes done before ploughing to soften the soil, and proper leveling ensures uniform water distribution during crop growth."
+      },
+      {
+        keywords: ["environmental benefits of land preparation", "eco benefits of land preparation"],
+        answer: "🌍 Proper land preparation reduces soil erosion, conserves water, enhances organic matter use, and promotes sustainable agriculture."
+      },
+      {
+        keywords: ["mistakes in land preparation", "common errors in land preparation"],
+        answer: "❌ Mistakes to avoid include insufficient ploughing, poor weed removal, overuse of chemicals, improper leveling, and ignoring soil testing."
+      }
+    ];
+
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
   }
+
   else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
