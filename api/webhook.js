@@ -100,7 +100,7 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "CI_SM_2_WaterNeeds_QA") {
+  } else if (intentName === "CI_SM_1_WaterNeeds_QA") {
     const answersMap = [
       {
         keywords: ["how much water does wheat need during flowering", "water need wheat flowering"],
