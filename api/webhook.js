@@ -995,7 +995,7 @@ export default async function handler(req, res) {
       }
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-      answerText = await get7DayWeatherForecast(userQuery);
+      answerText = await get5DayForecast(userQuery);
     console.log('Call weather API'); // For debugging
     
   } else if (intentName === "Default Fallback Intent") {
@@ -1015,40 +1015,60 @@ export default async function handler(req, res) {
   });
 }
 
-async function get7DayWeatherForecast(city) {
+async function get5DayForecast(city) {
   try {
-    // Get latitude and longitude for city
-    const cityUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${OPENWEATHER_API_KEY}`;
-    const cityResponse = await axios.get(cityUrl);
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+    const response = await axios.get(url);
 
-    if (!cityResponse.data || cityResponse.data.length === 0) {
-      return `City '${city}' not found.`;
+    if (!response.data || !response.data.list) {
+      return 'Sorry, forecast data not available.';
     }
 
-    const lat = cityResponse.data[0].lat;
-    const lon = cityResponse.data.lon;  // Fixed here
-
-    // Get 7-day forecast from One Call API
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=${OPENWEATHER_API_KEY}`;
-    const forecastResponse = await axios.get(forecastUrl);
-
-    if (!forecastResponse.data || !forecastResponse.data.daily) {
-      return 'Forecast data not available.';
-    }
-
-    const dailyForecasts = forecastResponse.data.daily;
-
-    // Format the forecast message
-    let message = `7-day weather forecast for ${city}:\n`;
-    dailyForecasts.slice(0, 7).forEach(day => {
-      const date = new Date(day.dt * 1000).toLocaleDateString();
-      message += `${date}: ${day.weather[0].description}, min ${day.temp.min}°C, max ${day.temp.max}°C\n`;
-    });
-
-    return message;
-
+    // Use the formatForecast function (from previous message)
+    return formatForecast(response.data);
   } catch (error) {
-    console.error('Error fetching weather data:', error.message);
-    return 'Sorry, I could not retrieve the weather information.';
+    console.error('Error fetching forecast:', error.message);
+    return 'Sorry, could not retrieve the weather forecast.';
   }
+}
+
+function formatForecast(forecastData) {
+  // Group forecasts by date
+  const dailyData = {};
+
+  forecastData.list.forEach(item => {
+    const date = item.dt_txt.split(' ')[0]; // Get yyyy-mm-dd
+    if (!dailyData[date]) {
+      dailyData[date] = {
+        temps: [],
+        weatherDescriptions: [],
+      };
+    }
+    dailyData[date].temps.push(item.main.temp);
+    dailyData[date].weatherDescriptions.push(item.weather.description);
+  });
+
+  // Build readable summary string
+  let summary = `5-day weather forecast for ${forecastData.city.name}:\n\n`;
+
+  Object.keys(dailyData).forEach(date => {
+    const temps = dailyData[date].temps;
+    const descriptions = dailyData[date].weatherDescriptions;
+
+    const minTemp = Math.min(...temps).toFixed(1);
+    const maxTemp = Math.max(...temps).toFixed(1);
+
+    // Get most frequent weather description
+    const weatherCount = descriptions.reduce((acc, desc) => {
+      acc[desc] = (acc[desc] || 0) + 1;
+      return acc;
+    }, {});
+    const mainWeather = Object.keys(weatherCount).reduce((a, b) =>
+      weatherCount[a] > weatherCount[b] ? a : b
+    );
+
+    summary += `${date}: ${mainWeather}, min ${minTemp}°C, max ${maxTemp}°C\n`;
+  });
+
+  return summary;
 }
