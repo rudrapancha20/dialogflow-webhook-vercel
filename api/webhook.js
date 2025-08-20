@@ -994,8 +994,7 @@ export default function handler(req, res) {
       }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
        console.log('Call weather API'); // Use console.log for debugging
-  }
-  else if (intentName === "Default Fallback Intent") {
+  } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
     answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
