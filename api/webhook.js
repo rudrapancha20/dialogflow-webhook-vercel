@@ -1021,7 +1021,9 @@ export default async function handler(req, res) {
 // Fetch 5-day weather forecast using OpenWeatherMap API and format response
 async function get5DayForecast(city) {
   try {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+
+    //For forcast change word weather to forcast rest is same api
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
     const response = await axios.get(url);
 
     if (!response.data || !response.data.list) {
