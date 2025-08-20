@@ -903,11 +903,99 @@ export default function handler(req, res) {
         break;
       }
     }
+  } else if (intentName === "CL_SM_2_SowingMethods_QA") {
+  const answersMap = [
+    {
+      keywords: ["what is sowing in agriculture", "define sowing"],
+      answer: "🌱 Sowing in agriculture is the process of planting seeds into the soil at proper depth and spacing for crop growth."
+    },
+    {
+      keywords: ["main methods of sowing", "methods of sowing"],
+      answer: "🛠️ The main methods of sowing are broadcasting, drilling, dibbling, transplanting, line sowing, precision sowing, and raised bed sowing."
+    },
+    {
+      keywords: ["what is broadcasting in sowing"],
+      answer: "🌾 Broadcasting is the scattering of seeds evenly by hand or mechanically over the soil surface."
+    },
+    {
+      keywords: ["advantages of broadcasting"],
+      answer: "✅ Advantages of broadcasting include: quick sowing, low cost, easy to cover large areas, and suitable for small seeds like millets and grasses."
+    },
+    {
+      keywords: ["what is drilling in sowing"],
+      answer: "🚜 Drilling is the method of placing seeds in continuous rows at a uniform depth with the help of a seed drill."
+    },
+    {
+      keywords: ["benefits of drilling"],
+      answer: "🌟 Benefits of drilling: ensures uniform seed depth, better crop stand, efficient fertilizer placement, and reduced wastage of seed."
+    },
+    {
+      keywords: ["what is dibbling in agriculture"],
+      answer: "🌿 Dibbling is sowing seeds by placing them manually or mechanically into holes made at fixed distances and depths."
+    },
+    {
+      keywords: ["uses of dibbling method"],
+      answer: "🔹 Dibbling is useful for crops like maize, cotton, sunflower, and vegetables where proper spacing is important."
+    },
+    {
+      keywords: ["what is transplanting in crop production"],
+      answer: "🌱 Transplanting is the practice of raising seedlings in a nursery and then replanting them into the main field."
+    },
+    {
+      keywords: ["crops suited for transplanting"],
+      answer: "🥬 Crops suited for transplanting include rice, tomato, chili, brinjal, tobacco, and certain vegetables."
+    },
+    {
+      keywords: ["what is line sowing"],
+      answer: "📏 Line sowing is the method of placing seeds in straight lines or rows with equal spacing between them."
+    },
+    {
+      keywords: ["how is sowing done with a seed drill"],
+      answer: "⚙️ Sowing with a seed drill involves using a machine that opens furrows, places seeds at uniform depth, and covers them with soil simultaneously."
+    },
+    {
+      keywords: ["disadvantages of broadcasting"],
+      answer: "❌ Disadvantages of broadcasting: uneven seed distribution, poor plant population, high seed rate, and difficulty in intercultural operations."
+    },
+    {
+      keywords: ["why is proper seed depth important"],
+      answer: "📌 Proper seed depth ensures good germination, prevents seed rotting, provides moisture access, and protects seeds from birds and pests."
+    },
+    {
+      keywords: ["factors for choosing a sowing method"],
+      answer: "📋 Factors include: crop type, seed size, soil type, water availability, climatic conditions, tools available, and labor cost."
+    },
+    {
+      keywords: ["what is precision sowing"],
+      answer: "🎯 Precision sowing is placing each seed at the exact location, depth, and spacing using modern machinery to achieve uniform plant growth."
+    },
+    {
+      keywords: ["how does seed rate relate to sowing methods"],
+      answer: "⚖️ Seed rate depends on sowing method – broadcasting requires more seeds, while drilling, dibbling, and precision sowing require fewer seeds due to better placement."
+    },
+    {
+      keywords: ["precautions during sowing", "what precautions should be taken during sowing"],
+      answer: "⚠️ Precautions during sowing: use quality seeds, maintain proper depth, avoid overcrowding, ensure soil moisture, and calibrate sowing machines properly."
+    },
+    {
+      keywords: ["what is raised bed sowing"],
+      answer: "🌄 Raised bed sowing is growing crops on elevated soil beds separated by furrows, improving drainage, aeration, and root development."
+    },
+    {
+      keywords: ["can machines be used for sowing"],
+      answer: "🤖 Yes, machines like seed drills, planters, and precision seeders are commonly used for efficient and large-scale sowing."
+    }
+  ];
+
+  for (const item of answersMap) {
+    if (item.keywords.some(kw => userQuery.includes(kw))) {
+      answerText = item.answer;
+      break;
+    }
+    
   }
-  else if (intentName === "Default Fallback Intent") {
-    answerText = defaultFallbackAnswer;
-  } else {
-    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
+}
+
   }
 
   res.status(200).json({
@@ -919,4 +1007,4 @@ export default function handler(req, res) {
       }
     ]
   });
-}
+
