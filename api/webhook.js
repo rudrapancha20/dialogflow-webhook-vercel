@@ -997,8 +997,18 @@ export default async function handler(req, res) {
       }
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-    answerText = await get5DayForecast(city);
-    console.log('Call weather API'); // For debugging
+    try {
+      answerText = await get5DayForecast(city);
+      console.log('Call weather API'); // For debugging
+    }
+    catch (error) {
+      console.error('Error fetching weather:', error.message);
+      res.json({
+        fulfillmentMessages: [{ text: { text: ['Sorry, I could not retrieve the weather information at this time.'] } }]
+      });
+    }
+
+
 
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
@@ -1030,7 +1040,7 @@ async function get5DayForecast(city) {
       return 'Sorry, forecast data not available.';
     }
     return response.data;
-   // return formatForecast(response.data);
+    // return formatForecast(response.data);
   } catch (error) {
     console.error('Error fetching forecast:', error.message);
     return 'Sorry, could not retrieve the weather forecast.';
