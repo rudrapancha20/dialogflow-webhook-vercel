@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   const axios = require('axios');
   const OPENWEATHER_API_KEY = '6c31d21c9b09a63d0aecd99ce77c936a';
   const intentName = req.body.queryResult?.intent?.displayName || "";
+  const city = req.body.queryResult?.parameters?.['geo-city'] || '';
   const userQuery = (req.body.queryResult?.queryText || "").toLowerCase();
 
   // Default fallback message for unmatched queries or intents
@@ -995,9 +996,9 @@ export default async function handler(req, res) {
       }
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-      answerText = await get5DayForecast(userQuery);
+    answerText = await get5DayForecast(city);
     console.log('Call weather API'); // For debugging
-    
+
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
