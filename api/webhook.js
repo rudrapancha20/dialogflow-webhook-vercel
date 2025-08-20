@@ -993,7 +993,7 @@ export default function handler(req, res) {
           break;
         }
       }
-  } else if (intentName === "Default Fallback Intent") {
+  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     alert('call weather api');
   }
     else if (intentName === "Default Fallback Intent") {
