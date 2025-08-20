@@ -1029,7 +1029,8 @@ async function get5DayForecast(city) {
     if (!response.data || !response.data.list) {
       return 'Sorry, forecast data not available.';
     }
-    return formatForecast(response.data);
+    return response.data;
+   // return formatForecast(response.data);
   } catch (error) {
     console.error('Error fetching forecast:', error.message);
     return 'Sorry, could not retrieve the weather forecast.';
