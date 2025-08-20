@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     return;
   }
 
-   const intentName = req.body.queryResult?.intent?.displayName || "";
+  const intentName = req.body.queryResult?.intent?.displayName || "";
   const city = req.body.queryResult?.parameters?.['geo-city'] || '';
   const userQuery = (req.body.queryResult?.queryText || "").toLowerCase();
 
@@ -997,8 +997,8 @@ export default async function handler(req, res) {
       }
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-      answerText = await get5DayForecast(city);
-      console.log('Call weather API'); // For debugging
+    answerText = await get5DayForecast(city);
+    console.log('Call weather API'); // For debugging
 
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
@@ -1018,6 +1018,7 @@ export default async function handler(req, res) {
 }
 
 
+// Fetch 5-day weather forecast using OpenWeatherMap API and format response
 async function get5DayForecast(city) {
   try {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
@@ -1026,7 +1027,6 @@ async function get5DayForecast(city) {
     if (!response.data || !response.data.list) {
       return 'Sorry, forecast data not available.';
     }
-
     return formatForecast(response.data);
   } catch (error) {
     console.error('Error fetching forecast:', error.message);
@@ -1034,11 +1034,12 @@ async function get5DayForecast(city) {
   }
 }
 
+// Format the OpenWeatherMap 5-day forecast data into readable text
 function formatForecast(forecastData) {
-  // Group forecasts by date
   const dailyData = {};
+
   forecastData.list.forEach(item => {
-    const date = item.dt_txt.split(' ')[0]; // Get yyyy-mm-dd
+    const date = item.dt_txt.split(' ')[0]; // yyyy-mm-dd
     if (!dailyData[date]) {
       dailyData[date] = {
         temps: [],
@@ -1046,24 +1047,29 @@ function formatForecast(forecastData) {
       };
     }
     dailyData[date].temps.push(item.main.temp);
-    dailyData[date].weatherDescriptions.push(item.weather[0].description);  // Fixed here
+    dailyData[date].weatherDescriptions.push(item.weather[0].description);
   });
-  // Build readable summary string
+
   let summary = `5-day weather forecast for ${forecastData.city.name}:\n\n`;
+
   Object.keys(dailyData).forEach(date => {
     const temps = dailyData[date].temps;
     const descriptions = dailyData[date].weatherDescriptions;
+
     const minTemp = Math.min(...temps).toFixed(1);
     const maxTemp = Math.max(...temps).toFixed(1);
-    // Get the most frequent weather description
+
     const weatherCount = descriptions.reduce((acc, desc) => {
       acc[desc] = (acc[desc] || 0) + 1;
       return acc;
     }, {});
+
     const mainWeather = Object.keys(weatherCount).reduce((a, b) =>
       weatherCount[a] > weatherCount[b] ? a : b
     );
+
     summary += `${date}: ${mainWeather}, min ${minTemp}°C, max ${maxTemp}°C\n`;
   });
+
   return summary;
 }
