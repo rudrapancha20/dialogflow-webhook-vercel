@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 const OPENWEATHER_API_KEY = '6c31d21c9b09a63d0aecd99ce77c936a';
 
 export default async function handler(req, res) {
@@ -998,19 +998,12 @@ export default async function handler(req, res) {
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
-       answerText = "☁️ Fetching current weather info... (API call placeholder)";
-      //answerText = await get5DayForecast(city);
-      console.log('Call weather API'); // For debugging
-    }
-    catch (error) {
+      const weatherData = await getCurrentWeather(city);
+      answerText = weatherData;
+    } catch (error) {
       console.error('Error fetching weather:', error.message);
-      res.json({
-        fulfillmentMessages: [{ text: { text: ['Sorry, I could not retrieve the weather information at this time.'] } }]
-      });
+      answerText = 'Sorry, I could not retrieve the weather information at this time.';
     }
-
-
-
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
@@ -1018,13 +1011,7 @@ export default async function handler(req, res) {
   }
 
   res.status(200).json({
-    fulfillmentMessages: [
-      {
-        text: {
-          text: [answerText]
-        }
-      }
-    ]
+    fulfillmentMessages: [{ text: { text: [answerText] } }]
   });
 }
 
@@ -1048,42 +1035,21 @@ async function get5DayForecast(city) {
   }
 }
 
-// Format the OpenWeatherMap 5-day forecast data into readable text
-function formatForecast(forecastData) {
-  const dailyData = {};
+// --- Weather API with native fetch ---
+async function getCurrentWeather(city) {
+  if (!city) return "Please provide a city name.";
 
-  forecastData.list.forEach(item => {
-    const date = item.dt_txt.split(' ')[0]; // yyyy-mm-dd
-    if (!dailyData[date]) {
-      dailyData[date] = {
-        temps: [],
-        weatherDescriptions: [],
-      };
-    }
-    dailyData[date].temps.push(item.main.temp);
-    dailyData[date].weatherDescriptions.push(item.weather[0].description);
-  });
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
 
-  let summary = `5-day weather forecast for ${forecastData.city.name}:\n\n`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Weather API error: ${response.status}`);
+  }
 
-  Object.keys(dailyData).forEach(date => {
-    const temps = dailyData[date].temps;
-    const descriptions = dailyData[date].weatherDescriptions;
+  const data = await response.json();
+  if (!data || !data.main) {
+    return `Sorry, no weather data found for ${city}.`;
+  }
 
-    const minTemp = Math.min(...temps).toFixed(1);
-    const maxTemp = Math.max(...temps).toFixed(1);
-
-    const weatherCount = descriptions.reduce((acc, desc) => {
-      acc[desc] = (acc[desc] || 0) + 1;
-      return acc;
-    }, {});
-
-    const mainWeather = Object.keys(weatherCount).reduce((a, b) =>
-      weatherCount[a] > weatherCount[b] ? a : b
-    );
-
-    summary += `${date}: ${mainWeather}, min ${minTemp}°C, max ${maxTemp}°C\n`;
-  });
-
-  return summary;
+  return `🌤️ Current weather in ${data.name}: ${data.weather[0].description}, Temp: ${data.main.temp}°C`;
 }
