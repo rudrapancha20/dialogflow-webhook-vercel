@@ -903,7 +903,6 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
   } else if (intentName === "CL_SM_2_SowingMethods_QA") {
       const answersMap = [
         {
@@ -996,19 +995,19 @@ export default function handler(req, res) {
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     alert('call weather api');
   }
-    else if (intentName === "Default Fallback Intent") {
-      answerText = defaultFallbackAnswer;
-    } else {
-      answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
-    }
-
-    res.status(200).json({
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [answerText]
-          }
-        }
-      ]
-    });
+  else if (intentName === "Default Fallback Intent") {
+    answerText = defaultFallbackAnswer;
+  } else {
+    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
   }
+
+  res.status(200).json({
+    fulfillmentMessages: [
+      {
+        text: {
+          text: [answerText]
+        }
+      }
+    ]
+  });
+}
