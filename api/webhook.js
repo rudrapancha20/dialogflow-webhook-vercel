@@ -998,6 +998,7 @@ export default async function handler(req, res) {
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
+       answerText = "☁️ Fetching current weather info... (API call placeholder)";
       answerText = await get5DayForecast(city);
       console.log('Call weather API'); // For debugging
     }
