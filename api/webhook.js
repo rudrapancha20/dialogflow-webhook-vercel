@@ -996,7 +996,7 @@ export default function handler(req, res) {
       }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     alert('call weather api');
-  } else if (intentName === "CL_SM_1_Crop_Management_QA") {
+  } else if (intentName === "CL_SM_3_Crop_Management_QA") {
   const answersMap = [
     {
       keywords: ["what is crop management"],
