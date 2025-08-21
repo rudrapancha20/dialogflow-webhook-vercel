@@ -994,8 +994,6 @@ export default function handler(req, res) {
           break;
         }
       }
-  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-    alert('call weather api');
   } else if (intentName === "CL_SM_3_Crop_Management_QA") {
   const answersMap = [
     {
