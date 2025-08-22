@@ -906,199 +906,197 @@ export default function handler(req, res) {
     }
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
   } else if (intentName === "CL_SM_2_SowingMethods_QA") {
-      const answersMap = [
-        {
-          keywords: ["what is sowing in agriculture", "define sowing"],
-          answer: "🌱 Sowing in agriculture is the process of planting seeds into the soil at proper depth and spacing for crop growth."
-        },
-        {
-          keywords: ["main methods of sowing", "methods of sowing"],
-          answer: "🛠️ The main methods of sowing are broadcasting, drilling, dibbling, transplanting, line sowing, precision sowing, and raised bed sowing."
-        },
-        {
-          keywords: ["what is broadcasting in sowing"],
-          answer: "🌾 Broadcasting is the scattering of seeds evenly by hand or mechanically over the soil surface."
-        },
-        {
-          keywords: ["advantages of broadcasting"],
-          answer: "✅ Advantages of broadcasting include: quick sowing, low cost, easy to cover large areas, and suitable for small seeds like millets and grasses."
-        },
-        {
-          keywords: ["what is drilling in sowing"],
-          answer: "🚜 Drilling is the method of placing seeds in continuous rows at a uniform depth with the help of a seed drill."
-        },
-        {
-          keywords: ["benefits of drilling"],
-          answer: "🌟 Benefits of drilling: ensures uniform seed depth, better crop stand, efficient fertilizer placement, and reduced wastage of seed."
-        },
-        {
-          keywords: ["what is dibbling in agriculture"],
-          answer: "🌿 Dibbling is sowing seeds by placing them manually or mechanically into holes made at fixed distances and depths."
-        },
-        {
-          keywords: ["uses of dibbling method"],
-          answer: "🔹 Dibbling is useful for crops like maize, cotton, sunflower, and vegetables where proper spacing is important."
-        },
-        {
-          keywords: ["what is transplanting in crop production"],
-          answer: "🌱 Transplanting is the practice of raising seedlings in a nursery and then replanting them into the main field."
-        },
-        {
-          keywords: ["crops suited for transplanting"],
-          answer: "🥬 Crops suited for transplanting include rice, tomato, chili, brinjal, tobacco, and certain vegetables."
-        },
-        {
-          keywords: ["what is line sowing"],
-          answer: "📏 Line sowing is the method of placing seeds in straight lines or rows with equal spacing between them."
-        },
-        {
-          keywords: ["how is sowing done with a seed drill"],
-          answer: "⚙️ Sowing with a seed drill involves using a machine that opens furrows, places seeds at uniform depth, and covers them with soil simultaneously."
-        },
-        {
-          keywords: ["disadvantages of broadcasting"],
-          answer: "❌ Disadvantages of broadcasting: uneven seed distribution, poor plant population, high seed rate, and difficulty in intercultural operations."
-        },
-        {
-          keywords: ["why is proper seed depth important"],
-          answer: "📌 Proper seed depth ensures good germination, prevents seed rotting, provides moisture access, and protects seeds from birds and pests."
-        },
-        {
-          keywords: ["factors for choosing a sowing method"],
-          answer: "📋 Factors include: crop type, seed size, soil type, water availability, climatic conditions, tools available, and labor cost."
-        },
-        {
-          keywords: ["what is precision sowing"],
-          answer: "🎯 Precision sowing is placing each seed at the exact location, depth, and spacing using modern machinery to achieve uniform plant growth."
-        },
-        {
-          keywords: ["how does seed rate relate to sowing methods"],
-          answer: "⚖️ Seed rate depends on sowing method – broadcasting requires more seeds, while drilling, dibbling, and precision sowing require fewer seeds due to better placement."
-        },
-        {
-          keywords: ["precautions during sowing", "what precautions should be taken during sowing"],
-          answer: "⚠️ Precautions during sowing: use quality seeds, maintain proper depth, avoid overcrowding, ensure soil moisture, and calibrate sowing machines properly."
-        },
-        {
-          keywords: ["what is raised bed sowing"],
-          answer: "🌄 Raised bed sowing is growing crops on elevated soil beds separated by furrows, improving drainage, aeration, and root development."
-        },
-        {
-          keywords: ["can machines be used for sowing"],
-          answer: "🤖 Yes, machines like seed drills, planters, and precision seeders are commonly used for efficient and large-scale sowing."
-        }
-      ];
-      for (const item of answersMap) {
-        if (item.keywords.some(kw => userQuery.includes(kw))) {
-          answerText = item.answer;
-          break;
+    const answersMap = [
+      {
+        keywords: ["what is sowing in agriculture", "define sowing"],
+        answer: "🌱 Sowing in agriculture is the process of planting seeds into the soil at proper depth and spacing for crop growth."
+      },
+      {
+        keywords: ["main methods of sowing", "methods of sowing"],
+        answer: "🛠️ The main methods of sowing are broadcasting, drilling, dibbling, transplanting, line sowing, precision sowing, and raised bed sowing."
+      },
+      {
+        keywords: ["what is broadcasting in sowing"],
+        answer: "🌾 Broadcasting is the scattering of seeds evenly by hand or mechanically over the soil surface."
+      },
+      {
+        keywords: ["advantages of broadcasting"],
+        answer: "✅ Advantages of broadcasting include: quick sowing, low cost, easy to cover large areas, and suitable for small seeds like millets and grasses."
+      },
+      {
+        keywords: ["what is drilling in sowing"],
+        answer: "🚜 Drilling is the method of placing seeds in continuous rows at a uniform depth with the help of a seed drill."
+      },
+      {
+        keywords: ["benefits of drilling"],
+        answer: "🌟 Benefits of drilling: ensures uniform seed depth, better crop stand, efficient fertilizer placement, and reduced wastage of seed."
+      },
+      {
+        keywords: ["what is dibbling in agriculture"],
+        answer: "🌿 Dibbling is sowing seeds by placing them manually or mechanically into holes made at fixed distances and depths."
+      },
+      {
+        keywords: ["uses of dibbling method"],
+        answer: "🔹 Dibbling is useful for crops like maize, cotton, sunflower, and vegetables where proper spacing is important."
+      },
+      {
+        keywords: ["what is transplanting in crop production"],
+        answer: "🌱 Transplanting is the practice of raising seedlings in a nursery and then replanting them into the main field."
+      },
+      {
+        keywords: ["crops suited for transplanting"],
+        answer: "🥬 Crops suited for transplanting include rice, tomato, chili, brinjal, tobacco, and certain vegetables."
+      },
+      {
+        keywords: ["what is line sowing"],
+        answer: "📏 Line sowing is the method of placing seeds in straight lines or rows with equal spacing between them."
+      },
+      {
+        keywords: ["how is sowing done with a seed drill"],
+        answer: "⚙️ Sowing with a seed drill involves using a machine that opens furrows, places seeds at uniform depth, and covers them with soil simultaneously."
+      },
+      {
+        keywords: ["disadvantages of broadcasting"],
+        answer: "❌ Disadvantages of broadcasting: uneven seed distribution, poor plant population, high seed rate, and difficulty in intercultural operations."
+      },
+      {
+        keywords: ["why is proper seed depth important"],
+        answer: "📌 Proper seed depth ensures good germination, prevents seed rotting, provides moisture access, and protects seeds from birds and pests."
+      },
+      {
+        keywords: ["factors for choosing a sowing method"],
+        answer: "📋 Factors include: crop type, seed size, soil type, water availability, climatic conditions, tools available, and labor cost."
+      },
+      {
+        keywords: ["what is precision sowing"],
+        answer: "🎯 Precision sowing is placing each seed at the exact location, depth, and spacing using modern machinery to achieve uniform plant growth."
+      },
+      {
+        keywords: ["how does seed rate relate to sowing methods"],
+        answer: "⚖️ Seed rate depends on sowing method – broadcasting requires more seeds, while drilling, dibbling, and precision sowing require fewer seeds due to better placement."
+      },
+      {
+        keywords: ["precautions during sowing", "what precautions should be taken during sowing"],
+        answer: "⚠️ Precautions during sowing: use quality seeds, maintain proper depth, avoid overcrowding, ensure soil moisture, and calibrate sowing machines properly."
+      },
+      {
+        keywords: ["what is raised bed sowing"],
+        answer: "🌄 Raised bed sowing is growing crops on elevated soil beds separated by furrows, improving drainage, aeration, and root development."
+      },
+      {
+        keywords: ["can machines be used for sowing"],
+        answer: "🤖 Yes, machines like seed drills, planters, and precision seeders are commonly used for efficient and large-scale sowing."
+      }
+    ];
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
+  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
+    alert('call weather api');
+  } else if (intentName === "CL_SM_3_Crop_Management_QA") {
+    const answersMap = [
+      {
+        keywords: ["what is crop management"],
+        answer: "🌱 Crop management is the process of planning, growing, and harvesting crops efficiently by using scientific techniques to improve yield, soil health, and sustainability."
+      },
+      {
+        keywords: ["main steps in crop management", "steps of crop management"],
+        answer: "📝 The main steps in crop management include: land preparation, seed selection, sowing, irrigation, nutrient management, pest and weed control, harvesting, and post-harvest handling."
+      },
+      {
+        keywords: ["why is pest management important in crop production"],
+        answer: "🐛 Pest management is important because it prevents crop loss, reduces yield damage, maintains crop quality, and ensures food security."
+      },
+      {
+        keywords: ["how does irrigation affect crop growth"],
+        answer: "💧 Irrigation provides necessary water for plant growth, supports photosynthesis, improves nutrient absorption, and ensures higher yields in dry conditions."
+      },
+      {
+        keywords: ["common weed control methods"],
+        answer: "🌿 Common weed control methods include manual weeding, mulching, crop rotation, herbicides, and biological control using beneficial insects or animals."
+      },
+      {
+        keywords: ["what is crop rotation"],
+        answer: "🔄 Crop rotation is the practice of growing different crops in sequence on the same land to improve soil fertility, reduce pests and diseases, and increase yield."
+      },
+      {
+        keywords: ["how do you select seeds for crop management"],
+        answer: "🌾 Seeds should be high-yielding, disease-resistant, climate-suitable, and certified by agricultural institutions for quality assurance."
+      },
+      {
+        keywords: ["what is integrated nutrient management"],
+        answer: "⚖️ Integrated nutrient management combines organic manures, compost, green manure, bio-fertilizers, and chemical fertilizers to maintain soil fertility and crop productivity sustainably."
+      },
+      {
+        keywords: ["how are fertilizers applied in crop management"],
+        answer: "🧪 Fertilizers are applied by methods such as broadcasting, band placement, foliar spray, and fertigation depending on crop and soil needs."
+      },
+      {
+        keywords: ["what is mulching and its benefits"],
+        answer: "🍂 Mulching is covering the soil with organic (straw, leaves) or plastic material to conserve moisture, reduce weeds, regulate soil temperature, and improve fertility."
+      },
+      {
+        keywords: ["how does crop spacing impact yield"],
+        answer: "📏 Proper crop spacing ensures better sunlight, air circulation, nutrient uptake, and reduces competition among plants, leading to higher yield and quality."
+      },
+      {
+        keywords: ["what is intercropping"],
+        answer: "🌽🌾 Intercropping is growing two or more crops together on the same field to maximize resource use, reduce pest attacks, and increase farm income."
+      },
+      {
+        keywords: ["how is disease management done in crops"],
+        answer: "🦠 Disease management is done through crop rotation, resistant varieties, biological control, timely spraying of fungicides, and good farm hygiene practices."
+      },
+      {
+        keywords: ["factors influence crop yield"],
+        answer: "📊 Crop yield is influenced by soil fertility, water availability, seed quality, pest and disease control, weather conditions, and farming practices."
+      },
+      {
+        keywords: ["what is sustainable crop management"],
+        answer: "🌍 Sustainable crop management involves eco-friendly practices like organic farming, crop rotation, integrated pest management, and minimal chemical use to protect the environment."
+      },
+      {
+        keywords: ["what is precision farming"],
+        answer: "📡 Precision farming uses modern technology like GPS, sensors, drones, and data analytics to optimize inputs, monitor crops, and improve productivity."
+      },
+      {
+        keywords: ["how is harvest time determined"],
+        answer: "⏳ Harvest time is determined by crop maturity signs such as grain hardness, leaf color change, moisture content, and drying of the plant."
+      },
+      {
+        keywords: ["what is post-harvest management in crops"],
+        answer: "📦 Post-harvest management includes cleaning, drying, grading, storage, and transportation of crops to maintain quality and reduce losses."
+      },
+      {
+        keywords: ["why is soil testing done in crop management"],
+        answer: "🧑‍🔬 Soil testing is done to determine nutrient levels, pH, and soil health so that farmers can apply the right type and amount of fertilizer for better yields."
+      },
+      {
+        keywords: ["what are organic crop management practices"],
+        answer: "🍀 Organic crop management includes using compost, bio-fertilizers, green manures, crop rotation, mulching, and natural pest control without synthetic chemicals."
+      }
+    ];
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
+  } else if (intentName === "Default Fallback Intent") {
+    answerText = defaultFallbackAnswer;
+  } else {
+    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
+  }
+  res.status(200).json({
+    fulfillmentMessages: [
+      {
+        text: {
+          text: [answerText]
         }
       }
-  } else if (intentName === "CL_SM_3_Crop_Management_QA") {
-  const answersMap = [
-    {
-      keywords: ["what is crop management"],
-      answer: "🌱 Crop management is the process of planning, growing, and harvesting crops efficiently by using scientific techniques to improve yield, soil health, and sustainability."
-    },
-    {
-      keywords: ["main steps in crop management", "steps of crop management"],
-      answer: "📝 The main steps in crop management include: land preparation, seed selection, sowing, irrigation, nutrient management, pest and weed control, harvesting, and post-harvest handling."
-    },
-    {
-      keywords: ["why is pest management important in crop production"],
-      answer: "🐛 Pest management is important because it prevents crop loss, reduces yield damage, maintains crop quality, and ensures food security."
-    },
-    {
-      keywords: ["how does irrigation affect crop growth"],
-      answer: "💧 Irrigation provides necessary water for plant growth, supports photosynthesis, improves nutrient absorption, and ensures higher yields in dry conditions."
-    },
-    {
-      keywords: ["common weed control methods"],
-      answer: "🌿 Common weed control methods include manual weeding, mulching, crop rotation, herbicides, and biological control using beneficial insects or animals."
-    },
-    {
-      keywords: ["what is crop rotation"],
-      answer: "🔄 Crop rotation is the practice of growing different crops in sequence on the same land to improve soil fertility, reduce pests and diseases, and increase yield."
-    },
-    {
-      keywords: ["how do you select seeds for crop management"],
-      answer: "🌾 Seeds should be high-yielding, disease-resistant, climate-suitable, and certified by agricultural institutions for quality assurance."
-    },
-    {
-      keywords: ["what is integrated nutrient management"],
-      answer: "⚖️ Integrated nutrient management combines organic manures, compost, green manure, bio-fertilizers, and chemical fertilizers to maintain soil fertility and crop productivity sustainably."
-    },
-    {
-      keywords: ["how are fertilizers applied in crop management"],
-      answer: "🧪 Fertilizers are applied by methods such as broadcasting, band placement, foliar spray, and fertigation depending on crop and soil needs."
-    },
-    {
-      keywords: ["what is mulching and its benefits"],
-      answer: "🍂 Mulching is covering the soil with organic (straw, leaves) or plastic material to conserve moisture, reduce weeds, regulate soil temperature, and improve fertility."
-    },
-    {
-      keywords: ["how does crop spacing impact yield"],
-      answer: "📏 Proper crop spacing ensures better sunlight, air circulation, nutrient uptake, and reduces competition among plants, leading to higher yield and quality."
-    },
-    {
-      keywords: ["what is intercropping"],
-      answer: "🌽🌾 Intercropping is growing two or more crops together on the same field to maximize resource use, reduce pest attacks, and increase farm income."
-    },
-    {
-      keywords: ["how is disease management done in crops"],
-      answer: "🦠 Disease management is done through crop rotation, resistant varieties, biological control, timely spraying of fungicides, and good farm hygiene practices."
-    },
-    {
-      keywords: ["factors influence crop yield"],
-      answer: "📊 Crop yield is influenced by soil fertility, water availability, seed quality, pest and disease control, weather conditions, and farming practices."
-    },
-    {
-      keywords: ["what is sustainable crop management"],
-      answer: "🌍 Sustainable crop management involves eco-friendly practices like organic farming, crop rotation, integrated pest management, and minimal chemical use to protect the environment."
-    },
-    {
-      keywords: ["what is precision farming"],
-      answer: "📡 Precision farming uses modern technology like GPS, sensors, drones, and data analytics to optimize inputs, monitor crops, and improve productivity."
-    },
-    {
-      keywords: ["how is harvest time determined"],
-      answer: "⏳ Harvest time is determined by crop maturity signs such as grain hardness, leaf color change, moisture content, and drying of the plant."
-    },
-    {
-      keywords: ["what is post-harvest management in crops"],
-      answer: "📦 Post-harvest management includes cleaning, drying, grading, storage, and transportation of crops to maintain quality and reduce losses."
-    },
-    {
-      keywords: ["why is soil testing done in crop management"],
-      answer: "🧑‍🔬 Soil testing is done to determine nutrient levels, pH, and soil health so that farmers can apply the right type and amount of fertilizer for better yields."
-    },
-    {
-      keywords: ["what are organic crop management practices"],
-      answer: "🍀 Organic crop management includes using compost, bio-fertilizers, green manures, crop rotation, mulching, and natural pest control without synthetic chemicals."
-    }
-  ];
-
-  for (const item of answersMap) {
-    if (item.keywords.some(kw => userQuery.includes(kw))) {
-      answerText = item.answer;
-      break;
-    }
-  }
+    ]
+  });
 }
-
-    else if (intentName === "Default Fallback Intent") {
-      answerText = defaultFallbackAnswer;
-    } else {
-      answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
-    }
-
-    res.status(200).json({
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [answerText]
-          }
-        }
-      ]
-    });
-  }
