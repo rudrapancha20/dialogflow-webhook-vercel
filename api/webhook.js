@@ -1085,18 +1085,108 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "Default Fallback Intent") {
-    answerText = defaultFallbackAnswer;
-  } else {
-    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
-  }
-  res.status(200).json({
-    fulfillmentMessages: [
+  } else if (intentName === "CL_SM_4_Irrigation_Schedule_QA") {
+    const answersMap = [
       {
-        text: {
-          text: [answerText]
-        }
+        keywords: ["what is an irrigation schedule"],
+        answer: "💧 An irrigation schedule is a planned timetable that defines when and how much water should be applied to crops to meet their water needs efficiently."
+      },
+      {
+        keywords: ["why is irrigation scheduling important"],
+        answer: "🌱 Irrigation scheduling is important because it ensures crops get the right amount of water at the right time, improving yield, saving water, and preventing over- or under-irrigation."
+      },
+      {
+        keywords: ["factors affect irrigation scheduling"],
+        answer: "📊 Factors affecting irrigation scheduling include soil type, crop type, growth stage, climate, weather conditions, water availability, and irrigation method."
+      },
+      {
+        keywords: ["determine when to irrigate"],
+        answer: "🕑 Irrigation timing is determined by monitoring soil moisture, crop water requirements, weather forecasts, and signs of crop stress."
+      },
+      {
+        keywords: ["common irrigation methods"],
+        answer: "🚿 Common irrigation methods include surface irrigation, sprinkler irrigation, drip irrigation, and subsurface irrigation."
+      },
+      {
+        keywords: ["role of soil moisture in irrigation"],
+        answer: "🌍 Soil moisture plays a vital role by indicating the amount of water available for crops. Scheduling is based on maintaining soil moisture within the optimal range."
+      },
+      {
+        keywords: ["crop growth stage affect irrigation schedule"],
+        answer: "🌾 Different crop growth stages require different amounts of water. For example, germination and flowering stages need more frequent irrigation compared to maturity."
+      },
+      {
+        keywords: ["tools help schedule irrigation"],
+        answer: "🛠️ Tools include soil moisture sensors, weather stations, evapotranspiration models, tensiometers, and mobile irrigation apps."
+      },
+      {
+        keywords: ["deficit irrigation scheduling"],
+        answer: "💦 Deficit irrigation scheduling means applying less water than full crop requirements, allowing mild stress to save water without major yield loss."
+      },
+      {
+        keywords: ["weather conditions impact irrigation"],
+        answer: "⛅ Weather affects irrigation as high temperature, wind, and low humidity increase water demand, while rainfall reduces the need for irrigation."
+      },
+      {
+        keywords: ["signs of over-irrigation"],
+        answer: "⚠️ Signs of over-irrigation include waterlogging, yellowing leaves, reduced root growth, nutrient leaching, and fungal diseases."
+      },
+      {
+        keywords: ["risks of under-irrigation"],
+        answer: "🚫 Risks of under-irrigation include crop stress, wilting, reduced photosynthesis, lower yields, and poor quality of produce."
+      },
+      {
+        keywords: ["calculate water requirement for crops"],
+        answer: "📐 Water requirement is calculated using crop evapotranspiration (ETc), soil water holding capacity, effective rainfall, and irrigation system efficiency."
+      },
+      {
+        keywords: ["irrigation schedules be changed"],
+        answer: "🔄 Yes, irrigation schedules can be adjusted depending on changing weather, crop stage, soil conditions, and water availability."
+      },
+      {
+        keywords: ["automated irrigation scheduling"],
+        answer: "🤖 Automated irrigation scheduling uses smart controllers, sensors, and weather data to automatically irrigate crops when needed."
+      },
+      {
+        keywords: ["how often should crops be irrigated"],
+        answer: "📆 Irrigation frequency depends on crop type, soil, climate, and growth stage. Typically, sandy soils need more frequent irrigation than clay soils."
+      },
+      {
+        keywords: ["impact of irrigation schedule on yield"],
+        answer: "📈 A proper irrigation schedule increases yield, improves crop quality, saves water, and enhances nutrient uptake."
+      },
+      {
+        keywords: ["mobile apps help with irrigation scheduling"],
+        answer: "📱 Yes, mobile apps provide real-time weather updates, soil moisture data, and water requirement calculators to help farmers schedule irrigation efficiently."
+      },
+      {
+        keywords: ["records maintained for irrigation scheduling"],
+        answer: "📝 Farmers should record irrigation dates, duration, water applied, rainfall, soil moisture readings, and crop stage for future planning."
+      },
+      {
+        keywords: ["best time of day for irrigation"],
+        answer: "🌄 The best time for irrigation is early morning or late evening to reduce evaporation losses and ensure efficient water use."
       }
-    ]
-  });
+    ];
+
+    for (const item of answersMap) {
+      if (item.keywords.some(kw => userQuery.includes(kw))) {
+        answerText = item.answer;
+        break;
+      }
+    }
+  } else if (intentName === "Default Fallback Intent") {
+  answerText = defaultFallbackAnswer;
+} else {
+  answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
+}
+res.status(200).json({
+  fulfillmentMessages: [
+    {
+      text: {
+        text: [answerText]
+      }
+    }
+  ]
+});
 }
