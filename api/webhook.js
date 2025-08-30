@@ -1248,8 +1248,15 @@ async function getWeatherAnd7DayForecast(city) {
       const tempMax = day.temp.max.toFixed(1);
       forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C\n`;
     });
+    
+// Split forecastStr by lines, build fulfillmentMessages array
+    const lines = forecastStr.split('\n').filter(line => line.trim() !== '');
+    const fulfillmentMessages = lines.map(line => ({
+      text: { text: [line] }
+    }));
 
-    return  forecastStr;
+    
+    return  fulfillmentMessages;
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
     return `Sorry, I couldn't get weather information for ${city} at this time.`;
