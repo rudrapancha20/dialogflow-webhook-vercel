@@ -1207,7 +1207,7 @@ export default async function handler(req, res) {
 // Fetch 7-day weather forecast using OpenWeatherMap API and format response
 async function getWeatherAnd5DayForecast(city) {
   try {
-    const forecastDays = 5;
+    const forecastDays = 7;
 
     // Fetch current weather to get lat/lon and current condition
     const currentWeatherResponse = await fetch(
@@ -1222,7 +1222,7 @@ async function getWeatherAnd5DayForecast(city) {
     const currentDescription = currentWeatherData.weather[0].description;
     const currentTemp = currentWeatherData.main.temp.toFixed(1);
 
-    // Fetch 5-day forecast using lat/lon
+    // Fetch 7-day forecast using lat/lon
     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
