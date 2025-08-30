@@ -1327,7 +1327,14 @@ async function getRainfallPrediction(city) {
 
     // Use the first day forecast to make the rainfall prediction
     const todayForecast = weatherData.list[0];
-    const date = new Date(todayForecast.dt * 1000).toISOString().split('T')[0];
+
+    // Format date as DD-MM-YYYY
+    const dt = new Date(todayForecast.dt * 1000);
+    const day = String(dt.getDate()).padStart(2, '0');
+    const month = String(dt.getMonth() + 1).padStart(2, '0');
+    const year = dt.getFullYear();
+    const date = `${day}-${month}-${year}`;
+
     const rainAmount = todayForecast.rain || 0;
     const pop = (todayForecast.pop || 0) * 100;
     const description = todayForecast.weather[0].description;
