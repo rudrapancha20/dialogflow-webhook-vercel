@@ -1205,11 +1205,11 @@ export default async function handler(req, res) {
 
 
 // Fetch 7-day weather forecast using OpenWeatherMap API and format response
-async function getWeatherAnd7DayForecast(city) {
+async function getWeatherAnd5DayForecast(city) {
   try {
     const forecastDays = 5;
 
-    // Fetch current weather and get lat/lon
+    // Fetch current weather to get lat/lon and current condition
     const currentWeatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
@@ -1222,16 +1222,16 @@ async function getWeatherAnd7DayForecast(city) {
     const currentDescription = currentWeatherData.weather[0].description;
     const currentTemp = currentWeatherData.main.temp.toFixed(1);
 
-    // Fetch 7-day forecast
+    // Fetch 5-day forecast using lat/lon
     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     if (!forecastResponse.ok) {
-      throw new Error(`7-day forecast API error: ${forecastResponse.statusText}`);
+      throw new Error(`5-day forecast API error: ${forecastResponse.statusText}`);
     }
     const forecastData = await forecastResponse.json();
 
-    // Helper: format date to DD-MM-YYYY
+    // Helper function to format date to DD-MM-YYYY
     const formatDate = (timestamp) => {
       const date = new Date(timestamp * 1000);
       const d = date.getDate().toString().padStart(2, '0');
@@ -1240,22 +1240,22 @@ async function getWeatherAnd7DayForecast(city) {
       return `${d}-${m}-${y}`;
     };
 
-    // Build a single multiline string combining all info
-    let forecastStr = `🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C\n\n🌦️ ${forecastDays}-day forecast:\n`;
+    // Build formatted forecast string with proper spacing and punctuation
+    let forecastStr = `🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C.  🌦️ ${forecastDays}-day forecast: `;
     forecastData.list.forEach((day, index) => {
       const dateStr = formatDate(day.dt);
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C`;
+      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C. `;
     });
 
-    // Return a single fulfillment message with text as one string
+    // Return fulfillmentMessages with exactly one text message containing one string
     return {
       fulfillmentMessages: [
         {
           text: {
-              text: [forecastStr.replace(/\n/g, ' ')] // replace newlines with space
+            text: [forecastStr.trim()]
           }
         }
       ]
