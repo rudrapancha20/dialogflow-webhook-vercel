@@ -1,11 +1,14 @@
 
-export default function handler(req, res) {
+const OPENWEATHER_API_KEY = '6c31d21c9b09a63d0aecd99ce77c936a';
+
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).send("Method Not Allowed");
     return;
   }
 
   const intentName = req.body.queryResult?.intent?.displayName || "";
+  const city = req.body.queryResult?.parameters?.['geo-city'] || '';
   const userQuery = (req.body.queryResult?.queryText || "").toLowerCase();
 
   // Default fallback message for unmatched queries or intents
@@ -904,7 +907,6 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
   } else if (intentName === "CL_SM_2_SowingMethods_QA") {
     const answersMap = [
       {
@@ -994,8 +996,7 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
-    alert('call weather api');
+  
   } else if (intentName === "CL_SM_3_Crop_Management_QA") {
     const answersMap = [
       {
@@ -1175,18 +1176,60 @@ export default function handler(req, res) {
         break;
       }
     }
-  } else if (intentName === "Default Fallback Intent") {
-  answerText = defaultFallbackAnswer;
-} else {
-  answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
-}
-res.status(200).json({
-  fulfillmentMessages: [
-    {
-      text: {
-        text: [answerText]
-      }
+  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
+    try {
+      const weatherData = await getCurrentWeather(city);
+      answerText = weatherData;
+    } catch (error) {
+      console.error('Error fetching weather:', error.message);
+      answerText = 'Sorry, I could not retrieve the weather information at this time.';
     }
-  ]
-});
+  } else if (intentName === "Default Fallback Intent") {
+    answerText = defaultFallbackAnswer;
+  } else {
+    answerText = `Sorry, I didn't understand your question. Please ask about related topics.`;
+  }
+
+  res.status(200).json({
+    fulfillmentMessages: [{ text: { text: [answerText] } }]
+  });
+}
+
+
+// Fetch 5-day weather forecast using OpenWeatherMap API and format response
+async function get5DayForecast(city) {
+  try {
+
+    //For forcast change word weather to forcast rest is same api
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+    const response = await axios.get(url);
+
+    if (!response.data || !response.data.list) {
+      return 'Sorry, forecast data not available.';
+    }
+    return response.data;
+    // return formatForecast(response.data);
+  } catch (error) {
+    console.error('Error fetching forecast:', error.message);
+    return 'Sorry, could not retrieve the weather forecast.';
+  }
+}
+
+// --- Weather API with native fetch ---
+async function getCurrentWeather(city) {
+  if (!city) return "Please provide a city name.";
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Weather API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (!data || !data.main) {
+    return `Sorry, no weather data found for ${city}.`;
+  }
+
+  return `🌤️ Current weather in ${data.name}: ${data.weather[0].description}, Temp: ${data.main.temp}°C`;
 }
