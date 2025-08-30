@@ -1208,9 +1208,8 @@ export default async function handler(req, res) {
 async function getWeatherAnd7DayForecast(city) {
   try {
     const forecastDays = 5;
-
     // Fetch current weather for city and get lat/lon
-     const currentWeatherResponse = await fetch(
+    const currentWeatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     if (!currentWeatherResponse.ok) {
@@ -1240,48 +1239,24 @@ async function getWeatherAnd7DayForecast(city) {
       return `${d}-${m}-${y}`;
     };
 
-    // Build fulfillmentMessages array for Dialogflow
-    const fulfillmentMessages = [
-      {
-        text: {
-          text: [`🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C`]
-        }
-      },
-      {
-        text: {
-          text: [`🌦️ ${forecastDays}-day forecast:`]
-        }
-      }
-    ];
-
+    // Format 7-day forecast string
+    let forecastStr = `🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C\n\n🌦️ 7-day forecast:\n`;
     forecastData.list.forEach((day, index) => {
       const dateStr = formatDate(day.dt);
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      fulfillmentMessages.push({
-        text: {
-          text: [`Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C`]
-        }
-      });
+      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C<br>`;
     });
 
-    // Return the JSON response object directly
-    return { fulfillmentMessages };
+    return {
+      fulfillmentText: forecastStr
+    };
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
-    return {
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [`Sorry, I couldn't get weather information for ${city} at this time.`]
-          }
-        }
-      ]
-    };
+    return `Sorry, I couldn't get weather information for ${city} at this time.`;
   }
 }
-
 
 // --- Weather API with native fetch ---
 async function getCurrentWeather(city) {
