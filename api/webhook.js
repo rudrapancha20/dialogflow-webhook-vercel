@@ -1300,10 +1300,9 @@ async function getRainfallPrediction(city) {
   if (!city) return "Please provide a city name.";
 
   // First, fetch the city's coordinates for the One Call API
-  const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}`;
-               
-
-  const geoResponse = await fetch(geoUrl);
+  const geoResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
+    );
   if (!geoResponse.ok) {
     throw new Error(`Geo API error: ${geoResponse.status}`);
   }
@@ -1314,8 +1313,9 @@ async function getRainfallPrediction(city) {
   const { lat, lon, name } = geoData[0];
 
   // Now fetch the weather forecast (One Call API)
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastdays}&appid=${OPENWEATHER_API_KEY}`;
-  const weatherResponse = await fetch(weatherUrl);
+  const weatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
+    );
   if (!weatherResponse.ok) {
     throw new Error(`Weather API error: ${weatherResponse.status}`);
   }
