@@ -1255,7 +1255,7 @@ async function getWeatherAnd5DayForecast(city) {
       fulfillmentMessages: [
         {
           text: {
-            text: [forecastStr.trim()]
+            text: [forecastStr]
           }
         }
       ]
