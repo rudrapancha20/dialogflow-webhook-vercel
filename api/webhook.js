@@ -1249,9 +1249,7 @@ async function getWeatherAnd7DayForecast(city) {
       forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C\n`;
     });
 
-    return {
-      fulfillmentText: forecastStr
-    };
+    return  forecastStr;
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
     return `Sorry, I couldn't get weather information for ${city} at this time.`;
