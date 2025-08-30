@@ -1256,7 +1256,7 @@ async function getWeatherAnd7DayForecast(city) {
     }));
 
     
-    return  fulfillmentMessages;
+    return { fulfillmentMessages };
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
     return `Sorry, I couldn't get weather information for ${city} at this time.`;
