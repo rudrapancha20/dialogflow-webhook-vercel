@@ -1250,18 +1250,7 @@ async function getWeatherAnd5DayForecast(city) {
       forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C. \n `;
     });
 
-    // Add CSS once
-
-      const style = document.createElement("style");
-      style.id = "botMessageStyle";
-      style.textContent = `
-        .bot-message {
-          white-space: pre-line;
-          line-height: 1.5;
-        }
-      `;
-      document.head.appendChild(style);
-   
+    
     // Return fulfillmentMessages with exactly one text message containing one string
     return forecastStr;
 
