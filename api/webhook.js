@@ -1299,27 +1299,36 @@ async function getWeatherAnd5DayForecast(city) {
 async function getRainfallPrediction(city) {
   if (!city) return "Please provide a city name.";
 
-  // First, fetch the city's coordinates for the One Call API
+  // Fetch current weather to get coordinates
   const geoResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
-    );
+    `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
+  );
+  
   if (!geoResponse.ok) {
     throw new Error(`Geo API error: ${geoResponse.status}`);
   }
+  
   const geoData = await geoResponse.json();
-  if (!geoData.length) {
+
+  if (!geoData.coord) {
     return `Sorry, could not find coordinates for ${city}.`;
   }
-  const { lat, lon, name } = geoData[0];
 
-  // Now fetch the weather forecast (One Call API)
+  const lat = geoData.coord.lat;
+  const lon = geoData.coord.lon;
+  const name = geoData.name;
+
+  // Fetch daily weather forecast from One Call API (default 7 days)
   const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
-    );
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${OPENWEATHER_API_KEY}&units=metric`
+  );
+
   if (!weatherResponse.ok) {
     throw new Error(`Weather API error: ${weatherResponse.status}`);
   }
+
   const weatherData = await weatherResponse.json();
+
   if (!weatherData.daily || !weatherData.daily.length) {
     return `Sorry, no daily forecast data available for ${name}.`;
   }
