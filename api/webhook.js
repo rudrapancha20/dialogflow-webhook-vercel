@@ -1200,6 +1200,14 @@ export default async function handler(req, res) {
       console.error('Error fetching weather:', error.message);
       answerText = 'Sorry, I could not retrieve the weather information at this time.';
     }
+  } else if (intentName === "WI_SM_4_Wind and Humidity Info_QA") {
+    try {
+      const weatherData = await getRainfallPrediction(city);
+      answerText = weatherData;
+    } catch (error) {
+      console.error('Error fetching weather:', error.message);
+      answerText = 'Sorry, I could not retrieve the weather information at this time.';
+    }
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
@@ -1276,7 +1284,7 @@ async function getWeatherAnd5DayForecast(city) {
       forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C. \n `;
     });
 
-    
+
     // Return fulfillmentMessages with exactly one text message containing one string
     return forecastStr;
 
@@ -1345,5 +1353,49 @@ Rainfall amount: ${rainAmount} mm
 Probability of precipitation: ${pop}%`;
   } catch (error) {
     return `Error fetching rainfall prediction: ${error.message}`;
+  }
+}
+
+// --- Wind & Humidity Info from Weather API ---
+async function getWindHumidityInfo(city) {
+  try {
+    if (!city) return "Please provide a city name.";
+
+    // Fetch current weather to get coordinates
+    const currentWeatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
+    );
+    if (!currentWeatherResponse.ok) {
+      throw new Error(`Current weather API error: ${currentWeatherResponse.statusText}`);
+    }
+    const currentWeatherData = await currentWeatherResponse.json();
+
+    const { lat, lon } = currentWeatherData.coord;
+    const name = currentWeatherData.name;
+
+    // Fetch daily forecast using lat/lon
+    const forecastResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=1&appid=${OPENWEATHER_API_KEY}&units=metric`
+    );
+    if (!forecastResponse.ok) {
+      throw new Error(`Forecast API error: ${forecastResponse.status}`);
+    }
+    const forecastData = await forecastResponse.json();
+
+    if (!forecastData.list || forecastData.list.length === 0) {
+      return `No daily forecast data available for ${name}.`;
+    }
+
+    const todayForecast = forecastData.list[0];
+
+    const windSpeed = todayForecast.speed; // m/s
+    const windDegree = todayForecast.deg; // degrees
+    const windGust = todayForecast.gust; // m/s
+    const humidity = todayForecast.humidity; // %
+
+    return `💨 Wind for ${name}: ${windSpeed} m/s from ${windDegree}°, gusting up to ${windGust} m/s
+💧 Humidity: ${humidity}%`;
+  } catch (error) {
+    return `Error fetching wind and humidity info: ${error.message}`;
   }
 }
