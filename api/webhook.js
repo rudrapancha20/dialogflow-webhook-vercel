@@ -1223,7 +1223,7 @@ async function getWeatherAnd7DayForecast(city) {
     const currentTemp = currentWeatherData.main.temp.toFixed(1);
 
     // Fetch 7-day forecast using lat/lon
-     const forecastResponse = await fetch(
+    const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     if (!forecastResponse.ok) {
@@ -1241,7 +1241,7 @@ async function getWeatherAnd7DayForecast(city) {
     };
 
     // Build fulfillmentMessages array for Dialogflow
-    const messages = [
+    const fulfillmentMessages = [
       {
         text: {
           text: [`🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C`]
@@ -1259,21 +1259,24 @@ async function getWeatherAnd7DayForecast(city) {
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      messages.push({
+      fulfillmentMessages.push({
         text: {
           text: [`Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C`]
         }
       });
     });
 
-    // Return object Dialogflow expects for webhook fulfillment
-    return { fulfillmentMessages: messages };
-
+    // Return the JSON response object directly
+    return { fulfillmentMessages };
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
     return {
       fulfillmentMessages: [
-        { text: { text: [`Sorry, I couldn't get weather information for ${city} at this time.`] } }
+        {
+          text: {
+            text: [`Sorry, I couldn't get weather information for ${city} at this time.`]
+          }
+        }
       ]
     };
   }
