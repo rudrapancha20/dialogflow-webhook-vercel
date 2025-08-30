@@ -1208,8 +1208,9 @@ export default async function handler(req, res) {
 async function getWeatherAnd7DayForecast(city) {
   try {
     const forecastDays = 5;
+
     // Fetch current weather for city and get lat/lon
-    const currentWeatherResponse = await fetch(
+     const currentWeatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     if (!currentWeatherResponse.ok) {
@@ -1222,7 +1223,7 @@ async function getWeatherAnd7DayForecast(city) {
     const currentTemp = currentWeatherData.main.temp.toFixed(1);
 
     // Fetch 7-day forecast using lat/lon
-    const forecastResponse = await fetch(
+     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     if (!forecastResponse.ok) {
@@ -1239,22 +1240,45 @@ async function getWeatherAnd7DayForecast(city) {
       return `${d}-${m}-${y}`;
     };
 
-    // Format 7-day forecast string
-    let forecastStr = `🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C\n\n🌦️ 7-day forecast:\n`;
+    // Build fulfillmentMessages array for Dialogflow
+    const messages = [
+      {
+        text: {
+          text: [`🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C`]
+        }
+      },
+      {
+        text: {
+          text: [`🌦️ ${forecastDays}-day forecast:`]
+        }
+      }
+    ];
+
     forecastData.list.forEach((day, index) => {
       const dateStr = formatDate(day.dt);
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C<br>`;
+      messages.push({
+        text: {
+          text: [`Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C`]
+        }
+      });
     });
 
-    return forecastStr;
+    // Return object Dialogflow expects for webhook fulfillment
+    return { fulfillmentMessages: messages };
+
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
-    return `Sorry, I couldn't get weather information for ${city} at this time.`;
+    return {
+      fulfillmentMessages: [
+        { text: { text: [`Sorry, I couldn't get weather information for ${city} at this time.`] } }
+      ]
+    };
   }
 }
+
 
 // --- Weather API with native fetch ---
 async function getCurrentWeather(city) {
