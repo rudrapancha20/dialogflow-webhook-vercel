@@ -1186,7 +1186,7 @@ export default async function handler(req, res) {
     }
   } else if (intentName === "WI_SM_2_7-Day Forecast_QA") {
     try {
-      const weatherData = await getWeatherAnd7DayForecast(city);
+      const weatherData = await getWeatherAnd5DayForecast(city);
       answerText = weatherData;
     } catch (error) {
       console.error('Error fetching weather:', error.message);
