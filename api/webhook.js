@@ -996,7 +996,7 @@ export default async function handler(req, res) {
         break;
       }
     }
-  
+
   } else if (intentName === "CL_SM_3_Crop_Management_QA") {
     const answersMap = [
       {
@@ -1197,23 +1197,36 @@ export default async function handler(req, res) {
 
 
 // Fetch 5-day weather forecast using OpenWeatherMap API and format response
-async function get5DayForecast(city) {
+async function get7DayForecast(city) {
   try {
-
-    //For forcast change word weather to forcast rest is same api
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
-    const response = await axios.get(url);
-
-    if (!response.data || !response.data.list) {
-      return 'Sorry, forecast data not available.';
+    const weatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
+    );
+    //https://api.openweathermap.org/data/2.5/weather?q=Ahmedabad&appid=6c31d21c9b09a63d0aecd99ce77c936a&units=metric
+    if (!weatherResponse.ok) {
+      throw new Error(`Error fetching city coordinates: ${weatherResponse.status} ${weatherResponse.statusText}`);
     }
-    return response.data;
-    // return formatForecast(response.data);
+    const weatherData = await weatherResponse.json();
+    const lat = weatherData.coord.lat;
+    const lon = weatherData.coord.lon;
+
+    const forecastResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${OPENWEATHER_API_KEY}`
+    );
+     //https://api.openweathermap.org/data/2.5/forecast/daily?lat=23.0333&lon=72.6167&cnt=7&appid=6c31d21c9b09a63d0aecd99ce77c936a
+    if (!forecastResponse.ok) {
+      throw new Error(`Error fetching 7-day forecast: ${forecastResponse.status} ${forecastResponse.statusText}`);
+    }
+    const forecastData = await forecastResponse.json();
+    return forecastData.daily;
   } catch (error) {
-    console.error('Error fetching forecast:', error.message);
-    return 'Sorry, could not retrieve the weather forecast.';
+    console.error("Error retrieving forecast:", error.message);
+    return null;
   }
 }
+
+
+
 
 // --- Weather API with native fetch ---
 async function getCurrentWeather(city) {
