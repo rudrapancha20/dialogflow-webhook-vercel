@@ -1192,6 +1192,14 @@ export default async function handler(req, res) {
       console.error('Error fetching weather:', error.message);
       answerText = 'Sorry, I could not retrieve the weather information at this time.';
     }
+  } else if (intentName === "WI_SM_3_Rainfall Prediction_QA") {
+    try {
+      const weatherData = await getRainfallPrediction(city);
+      answerText = weatherData;
+    } catch (error) {
+      console.error('Error fetching weather:', error.message);
+      answerText = 'Sorry, I could not retrieve the weather information at this time.';
+    }
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
@@ -1203,11 +1211,29 @@ export default async function handler(req, res) {
   });
 }
 
+// --- Weather API with native fetch ---
+async function getCurrentWeather(city) {
+  if (!city) return "Please provide a city name.";
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Weather API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (!data || !data.main) {
+    return `Sorry, no weather data found for ${city}.`;
+  }
+
+  return `🌤️ Current weather in ${data.name}: ${data.weather[0].description}, Temp: ${data.main.temp}°C`;
+}
 
 // Fetch 7-day weather forecast using OpenWeatherMap API and format response
 async function getWeatherAnd5DayForecast(city) {
   try {
-    const forecastDays = 7;
+    const forecastDays = 5;
 
     // Fetch current weather to get lat/lon and current condition
     const currentWeatherResponse = await fetch(
@@ -1222,7 +1248,7 @@ async function getWeatherAnd5DayForecast(city) {
     const currentDescription = currentWeatherData.weather[0].description;
     const currentTemp = currentWeatherData.main.temp.toFixed(1);
 
-    // Fetch 7-day forecast using lat/lon
+    // Fetch 5-day forecast using lat/lon
     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
@@ -1247,7 +1273,7 @@ async function getWeatherAnd5DayForecast(city) {
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C. \n`;
+      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C. \n `;
     });
 
     
@@ -1269,21 +1295,44 @@ async function getWeatherAnd5DayForecast(city) {
 }
 
 
-// --- Weather API with native fetch ---
-async function getCurrentWeather(city) {
+// --- Rainfall Prediction from Weather API ---
+async function getRainfallPrediction(city) {
   if (!city) return "Please provide a city name.";
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`;
+  // First, fetch the city's coordinates for the One Call API
+  const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}`;
+               
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Weather API error: ${response.status}`);
+  const geoResponse = await fetch(geoUrl);
+  if (!geoResponse.ok) {
+    throw new Error(`Geo API error: ${geoResponse.status}`);
+  }
+  const geoData = await geoResponse.json();
+  if (!geoData.length) {
+    return `Sorry, could not find coordinates for ${city}.`;
+  }
+  const { lat, lon, name } = geoData[0];
+
+  // Now fetch the weather forecast (One Call API)
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastdays}&appid=${OPENWEATHER_API_KEY}`;
+  const weatherResponse = await fetch(weatherUrl);
+  if (!weatherResponse.ok) {
+    throw new Error(`Weather API error: ${weatherResponse.status}`);
+  }
+  const weatherData = await weatherResponse.json();
+  if (!weatherData.daily || !weatherData.daily.length) {
+    return `Sorry, no daily forecast data available for ${name}.`;
   }
 
-  const data = await response.json();
-  if (!data || !data.main) {
-    return `Sorry, no weather data found for ${city}.`;
-  }
+  // Use the first day forecast to make the rainfall prediction
+  const todayForecast = weatherData.daily[0];
+  const date = new Date(todayForecast.dt * 1000).toISOString().split('T')[0];
+  const rainAmount = todayForecast.rain || 0;
+  const pop = (todayForecast.pop || 0) * 100;
+  const description = todayForecast.weather[0].description;
 
-  return `🌤️ Current weather in ${data.name}: ${data.weather[0].description}, Temp: ${data.main.temp}°C`;
+  return `🌧️ Rainfall Prediction for ${name} on ${date}:
+Weather: ${description}
+Rainfall amount: ${rainAmount} mm
+Probability of precipitation: ${pop}%`;
 }
