@@ -1247,7 +1247,7 @@ async function getWeatherAnd7DayForecast(city) {
       const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C\n`;
+      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C`;
     });
 
     // Return a single fulfillment message with text as one string
@@ -1255,7 +1255,7 @@ async function getWeatherAnd7DayForecast(city) {
       fulfillmentMessages: [
         {
           text: {
-            text: [forecastStr]  // Only one string in this array
+              text: [forecastStr.replace(/\n/g, ' ')] // replace newlines with space
           }
         }
       ]
