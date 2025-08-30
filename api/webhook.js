@@ -1186,7 +1186,7 @@ export default async function handler(req, res) {
     }
   } else if (intentName === "WI_SM_2_7-Day Forecast_QA") {
     try {
-      const weatherData = await get7DayForecast(city);
+      const weatherData = await getWeatherAnd7DayForecast(city);
       answerText = weatherData;
     } catch (error) {
       console.error('Error fetching weather:', error.message);
@@ -1205,57 +1205,56 @@ export default async function handler(req, res) {
 
 
 // Fetch 7-day weather forecast using OpenWeatherMap API and format response
-async function get7DayForecastByCity(city) {
+async function getWeatherAnd7DayForecast(city) {
   try {
-    const forecastdays = 7;
-    // Step 1: Get latitude and longitude from city name
-    const cityResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}`
+    const forecastDays = 5;
+    // Fetch current weather for city and get lat/lon
+    const currentWeatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
-    if (!cityResponse.ok) {
-      throw new Error(`Error fetching city data: ${cityResponse.status} ${cityResponse.statusText}`);
+    if (!currentWeatherResponse.ok) {
+      throw new Error(`Current weather API error: ${currentWeatherResponse.statusText}`);
     }
-    const cityData = await cityResponse.json();
-    const lat = cityData.coord.lat;
-    const lon = cityData.coord.lon;
+    const currentWeatherData = await currentWeatherResponse.json();
 
-    // Step 2: Call 7-day forecast API using lat, lon
+    const { lat, lon } = currentWeatherData.coord;
+    const currentDescription = currentWeatherData.weather[0].description;
+    const currentTemp = currentWeatherData.main.temp.toFixed(1);
+
+    // Fetch 7-day forecast using lat/lon
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastdays}&appid=${OPENWEATHER_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
-    
     if (!forecastResponse.ok) {
-      throw new Error(`Error fetching forecast: ${forecastResponse.status} ${forecastResponse.statusText}`);
+      throw new Error(`7-day forecast API error: ${forecastResponse.statusText}`);
     }
     const forecastData = await forecastResponse.json();
 
-    // Function to format date as DD-MM-YYYY
-    function formatDate(date) {
+    // Helper function to format date to DD-MM-YYYY
+    const formatDate = (timestamp) => {
+      const date = new Date(timestamp * 1000);
       const d = date.getDate().toString().padStart(2, '0');
-      const m = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+      const m = (date.getMonth() + 1).toString().padStart(2, '0');
       const y = date.getFullYear();
       return `${d}-${m}-${y}`;
-    }
+    };
 
-    // Process and format forecast into a string
-    const dailyForecasts = forecastData.list;
-    let forecastStr = `🌤️ 7-day forecast for ${city}:\n`;
-    dailyForecasts.forEach((day, index) => {
-      const date = new Date(day.dt * 1000);
-      const dayStr = formatDate(date);
-      const description = day.weather[0].description;
+    // Format 7-day forecast string
+    let forecastStr = `🌤️ Current weather in ${city}: ${currentDescription}, Temp: ${currentTemp}°C\n\n🌦️ 7-day forecast:\n`;
+    forecastData.list.forEach((day, index) => {
+      const dateStr = formatDate(day.dt);
+      const desc = day.weather[0].description;
       const tempMin = day.temp.min.toFixed(1);
       const tempMax = day.temp.max.toFixed(1);
-      forecastStr += `Day ${index + 1} (${dayStr}): ${description}, Min: ${tempMin}°C, Max: ${tempMax}°C\n`;
+      forecastStr += `Day ${index + 1} (${dateStr}): ${desc}, Min: ${tempMin}°C, Max: ${tempMax}°C\n`;
     });
 
     return forecastStr;
   } catch (error) {
-    console.error("Error:", error.message);
-    return `Sorry, could not get the 7-day forecast for ${city}.`;
+    console.error("Error fetching weather or forecast:", error);
+    return `Sorry, I couldn't get weather information for ${city} at this time.`;
   }
 }
-
 
 // --- Weather API with native fetch ---
 async function getCurrentWeather(city) {
