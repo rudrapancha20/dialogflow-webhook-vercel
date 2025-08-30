@@ -1233,9 +1233,6 @@ async function get7DayForecast(city) {
   }
 }
 
-
-
-
 // --- Weather API with native fetch ---
 async function getCurrentWeather(city) {
   if (!city) return "Please provide a city name.";
