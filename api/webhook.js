@@ -1184,6 +1184,14 @@ export default async function handler(req, res) {
       console.error('Error fetching weather:', error.message);
       answerText = 'Sorry, I could not retrieve the weather information at this time.';
     }
+  } else if (intentName === "WI_SM_2_7-Day Forecast_QA") {
+    try {
+      const weatherData = await get7DayForecast(city);
+      answerText = weatherData;
+    } catch (error) {
+      console.error('Error fetching weather:', error.message);
+      answerText = 'Sorry, I could not retrieve the weather information at this time.';
+    }
   } else if (intentName === "Default Fallback Intent") {
     answerText = defaultFallbackAnswer;
   } else {
@@ -1213,7 +1221,7 @@ async function get7DayForecast(city) {
     const forecastResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${OPENWEATHER_API_KEY}`
     );
-     //https://api.openweathermap.org/data/2.5/forecast/daily?lat=23.0333&lon=72.6167&cnt=7&appid=6c31d21c9b09a63d0aecd99ce77c936a
+    //https://api.openweathermap.org/data/2.5/forecast/daily?lat=23.0333&lon=72.6167&cnt=7&appid=6c31d21c9b09a63d0aecd99ce77c936a
     if (!forecastResponse.ok) {
       throw new Error(`Error fetching 7-day forecast: ${forecastResponse.status} ${forecastResponse.statusText}`);
     }
