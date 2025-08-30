@@ -1251,15 +1251,7 @@ async function getWeatherAnd5DayForecast(city) {
     });
 
     // Return fulfillmentMessages with exactly one text message containing one string
-    return {
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [forecastStr]
-          }
-        }
-      ]
-    };
+    return forecastStr;
 
   } catch (error) {
     console.error("Error fetching weather or forecast:", error);
