@@ -1251,7 +1251,7 @@ async function getWeatherAnd5DayForecast(city) {
     });
 
     // Add CSS once
-    if (!document.querySelector("#botMessageStyle")) {
+
       const style = document.createElement("style");
       style.id = "botMessageStyle";
       style.textContent = `
@@ -1261,7 +1261,7 @@ async function getWeatherAnd5DayForecast(city) {
         }
       `;
       document.head.appendChild(style);
-    }
+   
     // Return fulfillmentMessages with exactly one text message containing one string
     return forecastStr;
 
