@@ -1202,7 +1202,7 @@ export default async function handler(req, res) {
     }
   } else if (intentName === "WI_SM_4_Wind and Humidity Info_QA") {
     try {
-      const weatherData = await getRainfallPrediction(city);
+      const weatherData = await getWindHumidityInfo(city);
       answerText = weatherData;
     } catch (error) {
       console.error('Error fetching weather:', error.message);
