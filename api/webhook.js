@@ -1300,7 +1300,7 @@ async function getRainfallPrediction(city) {
   const forecastDays = 1;
 
   try {
-    // Fetch current weather to get lat/lon and current condition
+    // Fetch current weather to get lat/lon and city name
     const currentWeatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
@@ -1310,27 +1310,23 @@ async function getRainfallPrediction(city) {
     const currentWeatherData = await currentWeatherResponse.json();
 
     const { lat, lon } = currentWeatherData.coord;
-    const name = currentWeatherData.name;  // Fix undefined variable here
-    const currentDescription = currentWeatherData.weather[0].description;
-    const currentTemp = currentWeatherData.main.temp.toFixed(1);
+    const name = currentWeatherData.name;
 
-    // Fetch 5-day forecast using lat/lon
+    // Fetch daily forecast using lat/lon
     const weatherResponse = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastDays}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
-
     if (!weatherResponse.ok) {
       throw new Error(`Weather API error: ${weatherResponse.status}`);
     }
-
     const weatherData = await weatherResponse.json();
 
-    if (!weatherData.daily || !weatherData.daily.length) {
+    if (!weatherData.list || !weatherData.list.length) {
       return `Sorry, no daily forecast data available for ${name}.`;
     }
 
     // Use the first day forecast to make the rainfall prediction
-    const todayForecast = weatherData.daily[0];
+    const todayForecast = weatherData.list[0];
     const date = new Date(todayForecast.dt * 1000).toISOString().split('T')[0];
     const rainAmount = todayForecast.rain || 0;
     const pop = (todayForecast.pop || 0) * 100;
