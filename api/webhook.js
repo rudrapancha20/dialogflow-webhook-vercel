@@ -1204,12 +1204,13 @@ export default async function handler(req, res) {
 }
 
 
-// Fetch 5-day weather forecast using OpenWeatherMap API and format response
-async function get7DayForecastByCity(city, forecastdays, apiKey) {
+// Fetch 7-day weather forecast using OpenWeatherMap API and format response
+async function get7DayForecastByCity(city) {
   try {
+    const forecastdays = 7;
     // Step 1: Get latitude and longitude from city name
     const cityResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_API_KEY}`
     );
     if (!cityResponse.ok) {
       throw new Error(`Error fetching city data: ${cityResponse.status} ${cityResponse.statusText}`);
@@ -1220,7 +1221,7 @@ async function get7DayForecastByCity(city, forecastdays, apiKey) {
 
     // Step 2: Call 7-day forecast API using lat, lon
     const forecastResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastdays}&units=metric&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=${forecastdays}&units=metric&appid=${OPENWEATHER_API_KEY}`
     );
     if (!forecastResponse.ok) {
       throw new Error(`Error fetching forecast: ${forecastResponse.status} ${forecastResponse.statusText}`);
