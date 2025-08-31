@@ -1345,8 +1345,178 @@ export default async function handler(req, res) {
       answerText = item.answer;
       break;
     }
+  } 
+  }else if (intentName === "CL_SM_6_Weed_Pest Control_QA") {
+    const answersMap = [
+    {
+      keywords: [
+        "what is weed control in agriculture",
+        "define weed control",
+        "meaning of weed control"
+      ],
+      answer: "🌿 Weed control in agriculture refers to the practices used to manage or eliminate unwanted plants (weeds) that compete with crops for nutrients, water, light, and space."
+    },
+    {
+      keywords: [
+        "why is weed management important",
+        "importance of weed management",
+        "need for weed control"
+      ],
+      answer: "✅ Weed management is important because weeds reduce crop yield, harbor pests and diseases, increase production costs, and lower crop quality."
+    },
+    {
+      keywords: [
+        "main methods of weed control",
+        "types of weed control",
+        "methods of weed management"
+      ],
+      answer: "🛠️ The main methods of weed control are: cultural, mechanical, chemical, and biological control."
+    },
+    {
+      keywords: [
+        "what is cultural weed control",
+        "explain cultural weed management",
+        "cultural practices for weed control"
+      ],
+      answer: "🌱 Cultural weed control involves using good farming practices such as crop rotation, timely sowing, planting competitive varieties, and proper spacing to suppress weed growth."
+    },
+    {
+      keywords: [
+        "what is mechanical weed control",
+        "explain mechanical weed management",
+        "mechanical methods for weed control"
+      ],
+      answer: "⚙️ Mechanical weed control uses physical methods such as hand weeding, hoeing, mowing, and plowing to remove or destroy weeds."
+    },
+    {
+      keywords: [
+        "what is chemical weed control",
+        "explain chemical weed management",
+        "use of herbicides for weed control"
+      ],
+      answer: "💧 Chemical weed control involves applying herbicides (weed-killing chemicals) to manage weeds efficiently, either before or after crop emergence."
+    },
+    {
+      keywords: [
+        "what is biological weed control",
+        "explain biological weed management",
+        "biological methods for weed control"
+      ],
+      answer: "🦠 Biological weed control uses natural enemies like insects, fungi, or grazing animals to suppress weed populations in a sustainable way."
+    },
+    {
+      keywords: [
+        "what is integrated weed management",
+        "explain IWM",
+        "integrated methods of weed management"
+      ],
+      answer: "🌍 Integrated Weed Management (IWM) combines cultural, mechanical, biological, and chemical methods to manage weeds effectively and sustainably."
+    },
+    {
+      keywords: [
+        "what are pre emergence herbicides",
+        "examples of pre emergence herbicides",
+        "define pre emergence herbicides"
+      ],
+      answer: "🌱 Pre-emergence herbicides are applied to the soil before weeds germinate. They prevent weed seedlings from emerging."
+    },
+    {
+      keywords: [
+        "what are post emergence herbicides",
+        "examples of post emergence herbicides",
+        "define post emergence herbicides"
+      ],
+      answer: "🌿 Post-emergence herbicides are sprayed after weeds have emerged and are actively growing, directly killing or damaging them."
+    },
+    {
+      keywords: [
+        "what is pest control in crop production",
+        "define pest control",
+        "meaning of pest control in crops"
+      ],
+      answer: "🐛 Pest control in crop production involves managing insects, rodents, fungi, and other organisms that damage crops and reduce yield."
+    },
+    {
+      keywords: [
+        "common methods of pest control",
+        "types of pest management",
+        "pest control methods"
+      ],
+      answer: "🧩 Common pest control methods include cultural practices, biological control, mechanical methods (traps, barriers), and chemical pesticides."
+    },
+    {
+      keywords: [
+        "what is integrated pest management",
+        "explain IPM",
+        "meaning of integrated pest management"
+      ],
+      answer: "🌾 Integrated Pest Management (IPM) is an eco-friendly approach that combines cultural, biological, mechanical, and chemical methods to control pests with minimal environmental impact."
+    },
+    {
+      keywords: [
+        "how does crop rotation help with pest and weed control",
+        "role of crop rotation in weed management",
+        "crop rotation for pest control"
+      ],
+      answer: "🔄 Crop rotation breaks the life cycle of weeds and pests, reduces their buildup in soil, and improves soil health."
+    },
+    {
+      keywords: [
+        "what role does mulching play in weed management",
+        "mulching for weed control",
+        "benefits of mulching against weeds"
+      ],
+      answer: "🍂 Mulching suppresses weed growth by blocking sunlight, conserving soil moisture, and improving soil structure."
+    },
+    {
+      keywords: [
+        "how does tillage affect weed control",
+        "role of tillage in weed management",
+        "tillage and weeds"
+      ],
+      answer: "🚜 Tillage helps bury weed seeds, uproot young weeds, and prepare a clean seedbed, but excessive tillage may also bring dormant seeds to the surface."
+    },
+    {
+      keywords: [
+        "can animals be used to control weeds",
+        "using animals for weed management",
+        "grazing for weed control"
+      ],
+      answer: "🐐 Yes, grazing animals like goats, sheep, or ducks can be used to control weeds by feeding on them."
+    },
+    {
+      keywords: [
+        "risks of chemical weed and pest control",
+        "disadvantages of herbicides and pesticides",
+        "problems of chemical control"
+      ],
+      answer: "⚠️ Risks include environmental pollution, resistance development, harm to beneficial organisms, and health hazards for humans and animals."
+    },
+    {
+      keywords: [
+        "records for weed and pest control",
+        "what records should be kept for weed control",
+        "record keeping for pest control"
+      ],
+      answer: "📒 Records should include herbicide/pesticide type, application date, rate, field location, weather conditions, and observed effectiveness."
+    },
+    {
+      keywords: [
+        "new technologies for weed and pest control",
+        "modern methods of weed management",
+        "advanced pest and weed control"
+      ],
+      answer: "🤖 New technologies include drone spraying, precision agriculture, AI-based weed detection, herbicide-resistant crops, and robotic weeders."
+    }
+  ];
+
+  for (const item of answersMap) {
+    if (item.keywords.some(kw => userQuery.includes(kw))) {
+      answerText = item.answer;
+      break;
+    }
   }
-  } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
+} else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
       const weatherData = await getCurrentWeather(city);
       answerText = weatherData;
