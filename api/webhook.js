@@ -1168,14 +1168,185 @@ export default async function handler(req, res) {
         keywords: ["best time of day for irrigation"],
         answer: "🌄 The best time for irrigation is early morning or late evening to reduce evaporation losses and ensure efficient water use."
       }
-    ];
+    ]; 
 
     for (const item of answersMap) {
       if (item.keywords.some(kw => userQuery.includes(kw))) {
         answerText = item.answer;
         break;
       }
+    } 
+  }else if (intentName === "CL_SM_5_Fertilizer_Application_QA") {
+  const answersMap = [
+    {
+      keywords: [
+        "what is fertilizer application",
+        "define fertilizer application",
+        "explain fertilizer application"
+      ],
+      answer: "🌱 Fertilizer application is the process of adding essential nutrients to the soil or crops to improve their growth, yield, and quality."
+    },
+    {
+      keywords: [
+        "why is fertilizer application important",
+        "importance of fertilizer application",
+        "benefits of fertilizer application"
+      ],
+      answer: "🌾 Fertilizer application is important because it replenishes soil nutrients, promotes healthy crop growth, improves yield, and ensures balanced plant nutrition."
+    },
+    {
+      keywords: [
+        "main methods of fertilizer application",
+        "fertilizer application methods",
+        "different ways to apply fertilizers"
+      ],
+      answer: "🛠️ The main methods of fertilizer application are broadcasting, band placement, side dressing, top dressing, foliar application, and fertigation."
+    },
+    {
+      keywords: [
+        "what is broadcasting in fertilizer application",
+        "broadcasting method fertilizer",
+        "fertilizer broadcasting"
+      ],
+      answer: "📢 Broadcasting is the uniform spreading of fertilizers over the entire soil surface before or after planting."
+    },
+    {
+      keywords: [
+        "what is band placement",
+        "band placement method",
+        "fertilizer banding"
+      ],
+      answer: "🎯 Band placement involves applying fertilizers in concentrated bands near the seed or root zone to ensure efficient nutrient uptake."
+    },
+    {
+      keywords: [
+        "what is side dressing",
+        "side dressing method",
+        "side dressing in fertilizer application"
+      ],
+      answer: "➡️ Side dressing is the application of fertilizers alongside growing crops, usually during the growth stage, to supply additional nutrients."
+    },
+    {
+      keywords: [
+        "what is top dressing",
+        "top dressing fertilizer",
+        "fertilizer top dressing"
+      ],
+      answer: "🌿 Top dressing means spreading fertilizers on the surface of soil around the standing crops, mainly nitrogen fertilizers, to boost crop growth."
+    },
+    {
+      keywords: [
+        "what is foliar application",
+        "foliar spray fertilizers",
+        "fertilizer foliar application"
+      ],
+      answer: "💧 Foliar application is spraying water-soluble fertilizers directly onto crop leaves for quick nutrient absorption."
+    },
+    {
+      keywords: [
+        "advantages of split application of fertilizers",
+        "why split fertilizer application",
+        "benefits of split application"
+      ],
+      answer: "➗ Split application improves nutrient efficiency, reduces losses due to leaching or volatilization, and ensures nutrients are available when crops need them most."
+    },
+    {
+      keywords: [
+        "precautions during fertilizer application",
+        "safety measures fertilizer",
+        "fertilizer application precautions"
+      ],
+      answer: "⚠️ Precautions include correct dosage, uniform distribution, avoiding direct seed contact, using protective gear, and following soil test recommendations."
+    },
+    {
+      keywords: [
+        "how does soil testing affect fertilizer application",
+        "role of soil testing in fertilizer use",
+        "fertilizer soil test importance"
+      ],
+      answer: "🧪 Soil testing guides proper fertilizer type and dosage, prevents overuse, saves costs, and improves crop yield."
+    },
+    {
+      keywords: [
+        "what is fertigation",
+        "fertigation method",
+        "fertilizer irrigation"
+      ],
+      answer: "🚰 Fertigation is applying fertilizers through irrigation water, ensuring efficient nutrient delivery directly to plant roots."
+    },
+    {
+      keywords: [
+        "organic vs inorganic fertilizers application",
+        "difference organic and chemical fertilizer",
+        "fertilizer application organic inorganic"
+      ],
+      answer: "🌍 Organic fertilizers release nutrients slowly and improve soil health, while inorganic fertilizers provide quick nutrient availability but may degrade soil if overused."
+    },
+    {
+      keywords: [
+        "best time for fertilizer application",
+        "when should fertilizers be applied",
+        "timing of fertilizer application"
+      ],
+      answer: "⏰ The best time depends on the crop and fertilizer type. Generally, basal dose is applied at sowing and top dressing during crop growth stages when nutrient demand is high."
+    },
+    {
+      keywords: [
+        "what happens if too much fertilizer is applied",
+        "excess fertilizer effects",
+        "fertilizer overuse"
+      ],
+      answer: "🚫 Excess fertilizer can burn plants, cause nutrient imbalance, reduce yield, and pollute soil and water."
+    },
+    {
+      keywords: [
+        "can all crops use same type of fertilizer",
+        "same fertilizer for all crops",
+        "universal fertilizer crops"
+      ],
+      answer: "🌾 No, different crops have specific nutrient needs, so fertilizer types and doses must be adjusted accordingly."
+    },
+    {
+      keywords: [
+        "how are micronutrients applied to crops",
+        "micronutrient application",
+        "fertilizer micronutrients"
+      ],
+      answer: "🔬 Micronutrients are applied through soil application, foliar sprays, fertigation, or seed treatment depending on crop requirements."
+    },
+    {
+      keywords: [
+        "what records should be kept during fertilizer application",
+        "fertilizer record keeping",
+        "fertilizer application records"
+      ],
+      answer: "📒 Records should include type of fertilizer, quantity used, date of application, method, and crop growth stage."
+    },
+    {
+      keywords: [
+        "how does weather affect fertilizer application",
+        "weather impact fertilizer",
+        "fertilizer use in rain or heat"
+      ],
+      answer: "☀️🌧️ Weather affects fertilizer efficiency. Heavy rains can leach nutrients, while high heat may cause volatilization losses."
+    },
+    {
+      keywords: [
+        "tools to schedule fertilizer application",
+        "fertilizer scheduling tools",
+        "apps for fertilizer application"
+      ],
+      answer: "📱 Tools like soil test kits, mobile apps, decision-support systems, and crop calendars help farmers schedule fertilizer application effectively."
     }
+  ];
+
+  for (const item of answersMap) {
+    if (item.keywords.some(kw => userQuery.includes(kw))) {
+      answerText = item.answer;
+      break;
+    }
+  }
+
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
       const weatherData = await getCurrentWeather(city);
