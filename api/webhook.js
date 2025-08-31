@@ -1176,8 +1176,8 @@ export default async function handler(req, res) {
         break;
       }
     } 
-  }else if (intentName === "CL_SM_5_Fertilizer_Application_QA") {
-  const answersMap = [
+  } else if (intentName === "CL_SM_5_Fertilizer_Application_QA") {
+    const answersMap = [
     {
       keywords: [
         "what is fertilizer application",
@@ -1346,7 +1346,6 @@ export default async function handler(req, res) {
       break;
     }
   }
-
   } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
       const weatherData = await getCurrentWeather(city);
