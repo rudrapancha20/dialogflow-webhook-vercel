@@ -1685,6 +1685,176 @@ export default async function handler(req, res) {
       answerText = item.answer;
       break;
     }
+  } 
+} else if (intentName === "CP_SM_2_Recommended_Pesticides_QA") { 
+  const answersMap = [
+    {
+      keywords: [
+        "common pests in rice crops pesticide",
+        "control rice crop pests",
+        "recommended pesticide for rice"
+      ],
+      answer: "🧪 For rice pests like stem borers, brown planthopper, and leaf folder, use Chlorantraniliprole, Imidacloprid, or Fipronil sprays. 🌱 Maintain proper spacing and water management."
+    },
+    {
+      keywords: [
+        "pesticides for wheat pests",
+        "control wheat crop pests",
+        "wheat pest management"
+      ],
+      answer: "🧪 To control wheat pests such as termites and aphids, apply Chlorpyrifos for soil termites and Dimethoate or Imidacloprid for aphids. 🌱 Early sowing reduces attack."
+    },
+    {
+      keywords: [
+        "maize crop pest pesticide",
+        "pesticides for maize pests",
+        "control maize insect"
+      ],
+      answer: "🧪 For maize pests like fall armyworm and stem borers, use Spinetoram, Emamectin Benzoate, or Chlorantraniliprole. 🌱 Regular field monitoring is essential."
+    },
+    {
+      keywords: [
+        "cotton crop pest pesticides",
+        "control cotton insects",
+        "recommended pesticide for cotton"
+      ],
+      answer: "🧪 Cotton pests like bollworms and whiteflies can be managed with Neem oil sprays, Imidacloprid, or Emamectin Benzoate. 🌱 Rotate insecticides to avoid resistance."
+    },
+    {
+      keywords: [
+        "tomato plant pest pesticides",
+        "control tomato insects",
+        "tomato crop pesticide"
+      ],
+      answer: "🧪 For tomato fruit borer, thrips, and whiteflies, use Spinosad, Imidacloprid, or Neem-based sprays. 🌱 Install pheromone traps for monitoring."
+    },
+    {
+      keywords: [
+        "potato crop pest pesticide",
+        "pesticides for potato insects",
+        "control potato pests"
+      ],
+      answer: "🧪 Potato pests like tuber moth and aphids are controlled with Carbaryl, Thiamethoxam, or Neem oil sprays. 🌱 Earthing up reduces tuber exposure."
+    },
+    {
+      keywords: [
+        "sugarcane pest pesticide",
+        "insects harm sugarcane control",
+        "sugarcane insecticide"
+      ],
+      answer: "🧪 For sugarcane borers and pyrilla, apply Chlorpyrifos for borers and Imidacloprid for sucking pests. 🌱 Trash mulching reduces pest incidence."
+    },
+    {
+      keywords: [
+        "groundnut crop pest pesticide",
+        "control groundnut pests",
+        "pesticides for groundnut insects"
+      ],
+      answer: "🧪 Groundnut pests like leaf miner and tobacco caterpillar can be managed with Chlorantraniliprole, Quinalphos, or Neem extracts. 🌱 Early sowing helps reduce attack."
+    },
+    {
+      keywords: [
+        "chickpea field pest pesticide",
+        "pesticides for gram pests",
+        "control chickpea insects"
+      ],
+      answer: "🧪 Chickpea pod borer and aphids are controlled with Indoxacarb, Emamectin Benzoate, or Neem oil. 🌱 Install pheromone traps for monitoring Helicoverpa."
+    },
+    {
+      keywords: [
+        "soybean crop pest pesticide",
+        "pesticides for soybean insects",
+        "control soybean pests"
+      ],
+      answer: "🧪 Soybean pests like stem fly and whiteflies can be managed using Thiamethoxam, Imidacloprid, or Neem-based sprays. 🌱 Avoid waterlogging."
+    },
+    {
+      keywords: [
+        "cauliflower pest pesticide",
+        "control cauliflower insects",
+        "pesticides for cauliflower pests"
+      ],
+      answer: "🧪 For cauliflower pests like diamondback moth and aphids, use Spinosad, Emamectin Benzoate, or Neem oil sprays. 🌱 Maintain clean weed-free fields."
+    },
+    {
+      keywords: [
+        "brinjal pest pesticide",
+        "eggplant pest control",
+        "pesticides for brinjal pests"
+      ],
+      answer: "🧪 Brinjal shoot and fruit borer is controlled with Emamectin Benzoate or Neem-based formulations. Whiteflies and aphids respond to Imidacloprid. 🌱 Use pheromone traps."
+    },
+    {
+      keywords: [
+        "chili crop pest pesticide",
+        "pesticides for chili insects",
+        "control chili pests"
+      ],
+      answer: "🧪 Chili pests like thrips and fruit borer can be managed using Spinosad, Fipronil, or Neem oil sprays. 🌱 Avoid dense planting."
+    },
+    {
+      keywords: [
+        "cabbage pest pesticide",
+        "control cabbage insects",
+        "pesticides for cabbage pests"
+      ],
+      answer: "🧪 For cabbage pests such as diamondback moth and cabbage looper, apply Bacillus thuringiensis (Bt), Spinosad, or Neem-based sprays. 🌱 Netting helps in nurseries."
+    },
+    {
+      keywords: [
+        "okra pest pesticide",
+        "ladyfinger pest control",
+        "pesticides for okra insects"
+      ],
+      answer: "🧪 Okra pests like fruit borer and jassids are controlled with Indoxacarb, Imidacloprid, or Neem sprays. 🌱 Remove infested fruits promptly."
+    },
+    {
+      keywords: [
+        "banana plantation pest pesticide",
+        "control banana pests",
+        "banana insecticide"
+      ],
+      answer: "🧪 Banana pests such as weevils and thrips can be managed with Chlorpyrifos (soil drenching) and Neem oil sprays. 🌱 Remove dried leaves to reduce pest shelter."
+    },
+    {
+      keywords: [
+        "apple orchard pest pesticide",
+        "control apple insects",
+        "pesticides for apple pests"
+      ],
+      answer: "🧪 Apple pests like codling moth and woolly aphid are managed using Carbaryl, Malathion, or Neem oil sprays. 🌱 Use light traps for monitoring."
+    },
+    {
+      keywords: [
+        "grape pest pesticide",
+        "control grape insects",
+        "pesticides for grape pests"
+      ],
+      answer: "🧪 Grape pests such as thrips and mealybugs can be controlled with Imidacloprid, Spirotetramat, or Neem-based sprays. 🌱 Prune and destroy infested shoots."
+    },
+    {
+      keywords: [
+        "mango pest pesticide",
+        "control mango insects",
+        "pesticides for mango crops"
+      ],
+      answer: "🧪 Mango pests like hoppers and mealybugs are managed with Imidacloprid, Lambda-cyhalothrin, or Neem sprays. 🌱 Destroy infested twigs and fallen fruits."
+    },
+    {
+      keywords: [
+        "citrus pest pesticide",
+        "control citrus insects",
+        "pesticides for citrus pests"
+      ],
+      answer: "🧪 Citrus pests like leaf miner and psyllids are controlled using Imidacloprid, Spinosad, or Neem oil sprays. 🌱 Regular pruning helps reduce pest build-up."
+    }
+  ];
+
+  for (const item of answersMap) {
+    if (item.keywords.some(kw => userQuery.includes(kw))) {
+      answerText = item.answer;
+      break;
+    }
   }
 } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
