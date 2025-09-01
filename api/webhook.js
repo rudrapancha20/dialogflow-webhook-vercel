@@ -1516,6 +1516,176 @@ export default async function handler(req, res) {
       break;
     }
   }
+  }else if (intentName === "CP_SM_1_Identify_Pest by Crop_QA") {
+  const answersMap = [
+    {
+      keywords: [
+        "common pests in rice crops",
+        "pests of rice",
+        "rice crop pests"
+      ],
+      answer: "🐛 Common pests in rice crops include stem borers, brown planthopper, leaf folder, rice hispa, and gall midge."
+    },
+    {
+      keywords: [
+        "pests attack wheat crops",
+        "wheat crop pests",
+        "insects in wheat"
+      ],
+      answer: "🪲 Wheat crops are attacked by termites, aphids, wheat stem sawfly, armyworms, and Hessian fly."
+    },
+    {
+      keywords: [
+        "identify maize crop pests",
+        "maize pests",
+        "corn crop pests"
+      ],
+      answer: "🐛 Major maize pests include fall armyworm, stem borers, shoot fly, maize aphids, and rootworms."
+    },
+    {
+      keywords: [
+        "cotton crop pests",
+        "major pests in cotton",
+        "cotton insect problems"
+      ],
+      answer: "🪲 Cotton pests include bollworms, whiteflies, jassids, aphids, and pink bollworm."
+    },
+    {
+      keywords: [
+        "pests problematic for tomato plants",
+        "tomato crop pests",
+        "insects in tomatoes"
+      ],
+      answer: "🐛 Tomato pests include fruit borer, whiteflies, thrips, aphids, and leaf miners."
+    },
+    {
+      keywords: [
+        "recognize pests in potato crops",
+        "potato pests",
+        "insects attacking potato"
+      ],
+      answer: "🪲 Potato crops are affected by potato tuber moth, aphids, cutworms, white grubs, and jassids."
+    },
+    {
+      keywords: [
+        "insects harm sugarcane crops",
+        "sugarcane pests",
+        "sugarcane insect problems"
+      ],
+      answer: "🐛 Sugarcane pests include early shoot borer, top borer, root borer, pyrilla, and scale insects."
+    },
+    {
+      keywords: [
+        "pests target groundnut crops",
+        "groundnut pests",
+        "insects in groundnut"
+      ],
+      answer: "🪲 Groundnut pests include leaf miner, tobacco caterpillar, jassids, aphids, and gram pod borer."
+    },
+    {
+      keywords: [
+        "major pests in chickpea fields",
+        "chickpea pests",
+        "gram crop insects"
+      ],
+      answer: "🐛 Chickpea pests include pod borer (Helicoverpa), cutworms, aphids, and leaf miner."
+    },
+    {
+      keywords: [
+        "pests threaten soybean crops",
+        "soybean pests",
+        "insects in soybean"
+      ],
+      answer: "🪲 Soybean pests include stem fly, whitefly, jassids, aphids, and tobacco caterpillar."
+    },
+    {
+      keywords: [
+        "spot pests in cauliflower",
+        "cauliflower pests",
+        "insects in cauliflower"
+      ],
+      answer: "🐛 Cauliflower pests include diamondback moth, cabbage butterfly, aphids, and leaf webber."
+    },
+    {
+      keywords: [
+        "main pests for brinjal",
+        "eggplant pests",
+        "brinjal insect problems"
+      ],
+      answer: "🪲 Brinjal (eggplant) pests include shoot and fruit borer, jassids, aphids, and whiteflies."
+    },
+    {
+      keywords: [
+        "pests harmful to chili crops",
+        "chili pests",
+        "insects in chili plants"
+      ],
+      answer: "🐛 Chili pests include thrips, fruit borer, aphids, whiteflies, and mites."
+    },
+    {
+      keywords: [
+        "pests attack cabbage crops",
+        "cabbage pests",
+        "insects in cabbage"
+      ],
+      answer: "🪲 Cabbage pests include diamondback moth, cabbage looper, aphids, and cabbage butterfly."
+    },
+    {
+      keywords: [
+        "recognize pests in okra",
+        "okra pests",
+        "ladyfinger insect problems"
+      ],
+      answer: "🐛 Okra pests include fruit borer, jassids, aphids, whiteflies, and shoot fly."
+    },
+    {
+      keywords: [
+        "pests cause problems in banana plantations",
+        "banana crop pests",
+        "banana insect pests"
+      ],
+      answer: "🪲 Banana pests include banana weevil, pseudostem borer, thrips, and aphids."
+    },
+    {
+      keywords: [
+        "bugs attack apple orchards",
+        "apple pests",
+        "insects in apple trees"
+      ],
+      answer: "🐛 Apple orchards are attacked by codling moth, aphids, woolly apple aphid, and fruit borer."
+    },
+    {
+      keywords: [
+        "main pests for grapes",
+        "grape crop pests",
+        "insects in grapes"
+      ],
+      answer: "🪲 Grape pests include thrips, flea beetle, mealybugs, grapevine stem borer, and leaf folder."
+    },
+    {
+      keywords: [
+        "spot pests in mango crops",
+        "mango pests",
+        "insects attacking mango"
+      ],
+      answer: "🐛 Mango pests include mango hopper, mealybugs, fruit fly, and stem borer."
+    },
+    {
+      keywords: [
+        "pests damage citrus crops",
+        "citrus pests",
+        "insects in citrus orchards"
+      ],
+      answer: "🪲 Citrus pests include citrus leaf miner, blackfly, fruit-sucking moth, psyllids, and mealybugs."
+    }
+  ];
+
+  for (const item of answersMap) {
+    if (item.keywords.some(kw => userQuery.includes(kw))) {
+      answerText = item.answer;
+      break;
+    }
+  }
 } else if (intentName === "WI_SM_1_Current Weather_location_QA") {
     try {
       const weatherData = await getCurrentWeather(city);
